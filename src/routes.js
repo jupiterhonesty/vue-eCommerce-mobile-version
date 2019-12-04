@@ -1,6 +1,7 @@
 import Home from './views/home'
 import Login from './views/page/account/login'
 import Register from './views/page/account/register'
+import RegisterConfirm from './views/page/account/registerConfirm'
 let routes = [
 
   {
@@ -23,6 +24,11 @@ let routes = [
     path: '/page/account/register',
     name: 'register',
     component: Register
+  },
+  {
+    path: '/page/account/register_confirm',
+    name: 'registerconfirm',
+    component: RegisterConfirm
   }
 ];
 

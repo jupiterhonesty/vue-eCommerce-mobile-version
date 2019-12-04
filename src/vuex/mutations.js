@@ -3,7 +3,8 @@ export const setGlobalError = (state, payload) => {
 }
 
 export const logout = (state) => {
-    state.app_user = {}
-    state.web_user = {}
+    state.globalError = ''
+    state.auth.web_user.authenticated = false;
+    state.auth.web_user.user = null;    
 }
 

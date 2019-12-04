@@ -41,7 +41,7 @@ function confirmSignUp(username, code) {
         return data // 'SUCCESS'
     })
         .catch(err => {
-            throw err;
+            return {err};
         });
 }
 

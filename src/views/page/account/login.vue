@@ -77,9 +77,6 @@ export default {
       globalError: "getGlobalError"
     })
   },
-  mounted() {   
-    this.$store.dispatch("auth/findUser");
-  },
   data() {
     return {
       logintitle: "Login",

@@ -32,7 +32,9 @@ Vue.component('paypal-checkout', PayPal)
 Vue.use(VueLazyLoad)
 Vue.use(BootStrapVue)
 
+const { dispatch, getters } = store  
 
+dispatch('auth/findUser');
 
 Vue.config.productionTip = false
 
@@ -42,10 +44,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  var { dispatch, getters } = store  
-  dispatch('auth/findUser');
+  
   var app_user_authenticated = getters['auth/appUserAuthed']
   var web_user_authenticated = getters['auth/webUserAuthed']
+
   if (to.matched.some(record => record.meta.requiresLogin) && ((!app_user_authenticated) && (!web_user_authenticated))) {
     next("/page/account/login")
   } else {
@@ -56,21 +58,23 @@ router.beforeEach(async (to, from, next) => {
 
 
 AmplifyEventBus.$on('authState', async (state) => {
+  
   const pushPathes = {
     signedOut: () => {
+      dispatch('logout')
       router.push({ path: '/page/account/login' })
     },
     signUp: () => {
       router.push({ path: '/page/account/register' })
     },
     confirmSignUp: () => {
-      router.push({ path: '/signUpConfirm' })
+      router.push({ path: '/page/account/register_confirm' })
     },
     signIn: () => {
       router.push({ path: '/page/account/login' })
     },
     signedIn: () => {
-      store.dispatch('auth/findUser');
+      dispatch('auth/findUser');
       router.push({ path: '/home' })
     }
   }

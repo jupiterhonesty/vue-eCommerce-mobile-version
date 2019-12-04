@@ -185,7 +185,7 @@
            </li>
           <li>
            <router-link v-if="!signedIn" :to="{ path: '/page/account/login' }">Login/Signup</router-link>
-           <router-link v-if="signedIn" :to="{ path: '/page/account/login' }">Logout</router-link>           
+            <a v-if="signedIn" @click="signOut" href="#">Logout</a>     
            </li>
            
        </ul>
@@ -195,6 +195,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import {signOut} from '@/utils/auth'
 export default {
   props: ['leftSidebarVal'],
   data() {
@@ -208,6 +209,9 @@ export default {
     })
   },
   methods: {
+    signOut() {
+      signOut()
+    },  
     closeLeftBar(val) {
       val = false
       this.$emit('closeVal', val)

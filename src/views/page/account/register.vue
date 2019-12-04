@@ -84,6 +84,7 @@
 import Header from '../../../components/header'
 import Footer from '../../../components/footer'
 import Breadcrumbs from '../../../components/widgets/breadcrumbs'
+import {signUp} from '@/utils/auth.js'
 export default {
   components: {
     Header,
@@ -100,7 +101,7 @@ export default {
       password: null
     }
   },
-  methods: {
+  methods: {      
     checkForm: function (e) {
       this.errors = []
       if (!this.fname) {
@@ -119,8 +120,12 @@ export default {
       } else if (!this.validpassword(this.password)) {
         this.errors.push('Minimum 8 characters in Password.')
       }
-      if (!this.errors.length) return true
       e.preventDefault()
+      if (!this.errors.length) {
+          signUp(this.email, this.password); 
+      }
+      
+     
     },
     validEmail: function (email) {
       const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
