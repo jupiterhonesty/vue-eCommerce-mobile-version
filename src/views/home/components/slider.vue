@@ -18,7 +18,7 @@
                         <div>
                           <h4>{{ item.title }}</h4>
                           <h1>{{ item.subtitle }}</h1>
-                          <a href class="btn btn-solid">shop now</a>
+                          <router-link class="btn btn-solid" to="/collection/shop">shop now</router-link>
                         </div>
                       </div>
                     </div>

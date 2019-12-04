@@ -15,11 +15,12 @@ import BootStrapVue from 'bootstrap-vue'
 import store from './vuex/store'
 
 /**** CSS Import ****/
-import './assets/scss/app.scss'
-import 'swiper/dist/css/swiper.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'swiper/dist/css/swiper.css'
+import './assets/scss/app.scss'
+
 
 Amplify.configure(aws_exports);
 Vue.use(AmplifyPlugin, AmplifyModuls);

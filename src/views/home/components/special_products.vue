@@ -150,7 +150,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import productBox from "../../../components/product-box";
+import productBox from "../../../components/product-box/home-product-box";
 export default {
   props: ["products"],
   components: {
