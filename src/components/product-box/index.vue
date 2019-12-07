@@ -39,7 +39,7 @@
           >
             <i class="ti-shopping-cart"></i>
           </button>
-        <a href="javascript:void(0)" title="Wishlist">
+        <!-- <a href="javascript:void(0)" title="Wishlist">
           <i class="ti-heart" aria-hidden="true" @click="addToWishlist(product)"></i>
         </a>
         <a href="javascript:void(0)" title="Quick View" @click="showQuickview(product)" v-b-modal.modal-lg variant="primary">
@@ -47,7 +47,7 @@
         </a>
         <a href="javascript:void(0)" title="Comapre" @click="addToCompare(product)" v-b-modal.modal-compare variant="primary">
           <i class="ti-reload" aria-hidden="true"></i>
-        </a>
+        </a> -->
       </div>
     </div>
     <div class="product-detail">

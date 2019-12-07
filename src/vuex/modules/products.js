@@ -1,8 +1,8 @@
 import products from '../../../data/products'
 
 const state = {
-  productslist: products.data,
-  products: products.data,
+  productslist: [],
+  products: [],
   wishlist: [],
   compare: [],
   currency: {
@@ -52,6 +52,10 @@ const getters = {
 }
 // mutations
 const mutations = {
+  setProducts:(state,payload)=>{
+    state.products = payload
+    state.productslist = payload    
+  },
   changeCurrency: (state, payload) => {
     state.currency = payload
   },
@@ -98,6 +102,9 @@ const mutations = {
 }
 // actions
 const actions = {
+  setProducts:(context,payload) =>{
+    context.commit('setProducts',payload)
+  },
   changeCurrency: (context, payload) => {
     context.commit('changeCurrency', payload)
   },

@@ -3,15 +3,16 @@
     <section class="section-b-space addtocart_count ratio_square">
       <div class="container">
         <div class="row">
-          <div class="col">
+          <div class="col nopadding">
             <div class="title4">
               <h2 class="title-inner4">{{title}}</h2>
-              <div class="line">
+              <!-- <div class="line">
                 <span></span>
-              </div>
+              </div> -->
             </div>
             <div v-swiper:mySwiper="swiperOption">
               <div class="swiper-wrapper">
+               
                 <div
                   class="swiper-slide"
                   v-for="(product,index) in products"
@@ -28,7 +29,7 @@
                       :index="index"
                     />
                   </div>
-                </div>
+                </div>              
               </div>
             </div>
           </div>
@@ -46,7 +47,7 @@
   </div>
 </template>
 <script>
-import productBox from '../../../components/product-box'
+import productBox from '@/components/product-box'
 export default {
   props: ['products'],
   components: {
@@ -72,11 +73,11 @@ export default {
             spaceBetween: 20
           },
           991: {
-            slidesPerView: 2,
+            slidesPerView: 3,
             spaceBetween: 20
           },
           420: {
-            slidesPerView: 1,
+            slidesPerView: 3,
             spaceBetween: 20
           }
         }

@@ -2,13 +2,14 @@ import Home from './views/home'
 import Login from './views/page/account/login'
 import Register from './views/page/account/register'
 import RegisterConfirm from './views/page/account/registerConfirm'
+import AppLogin from './views/page/app-account/login'
 import Shop from './views/collection/shop'
 let routes = [
 
   {
-    path: '/',
+    path: '/',//app version
     name: 'appstart',
-    redirect: { path: '/home' }
+    redirect: { path: '/page/app-account/login' }
   },
   {
     path: '/home',
@@ -35,6 +36,12 @@ let routes = [
     path: '/collection/shop',
     name: 'shop',
     component: Shop
+  },
+
+  {
+    path: '/page/app-account/login',
+    name:'applogin',
+    component: AppLogin
   }
 ];
 

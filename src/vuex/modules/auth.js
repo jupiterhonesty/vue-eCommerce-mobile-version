@@ -19,12 +19,12 @@ const state = {
 
 const getters = {
     signedIn: (state) => {
+        return state.web_user.authenticated||state.app_user.authenticated;
+    },
+    webUserAuthed: state => {
         return state.web_user.authenticated;
     },
-    webUserAuthed: state =>{
-        return state.web_user.authenticated;
-    },
-    appUserAuthed: state =>{
+    appUserAuthed: state => {
         return state.app_user.authenticated;
     }
 }
@@ -40,6 +40,13 @@ const mutations = {
             state.web_user.authenticated = false;
             state.web_user.user = null;
         }
+    },
+    setAppUser: (state, payload) => {
+        state.app_user.access_token = payload.data.appat;
+        state.app_user.longitude = payload.data.longitude;
+        state.app_user.latitude = payload.data.latitude;
+        state.app_user.authenticated = true;
+        state.web_user.authenticated = false;
     }
 
 }
@@ -47,6 +54,9 @@ const mutations = {
 const actions = {
     findUser: (context) => {
         context.commit("findUser")
+    },
+    setAppUser: (context, payload) => {
+        context.commit('setAppUser', payload)
     }
 }
 
