@@ -6,11 +6,15 @@
       </div>
       <div class="front text-center">
         <router-link :to="{ path: '/product/sidebar/'+product.id}">
+         <img
+            :src='require("@/assets/images/loader.gif")'            
+            class="img-fluid bg-img w-100"           
+          />
           <img
-            :src='getImgUrl(product.images[0].src)'
+            :src='product.productPictureURL||require("@/assets/images/pro/1.jpg")'
             :id="product.id"
-            class="img-fluid bg-img"
-            :alt="product.title"
+            class="img-fluid bg-img r-img"
+            :alt="product.productName"
             :key="index"
           />
         </router-link>
@@ -52,14 +56,14 @@
         <i class="fa fa-star"></i>
       </div>
       <router-link :to="{ path: '/product/sidebar/'+product.id}">
-        <h6>{{ product.title }}</h6>
+        <h6>{{ product.productName }}</h6>
       </router-link>
-      <p>{{ product.description }}</p>
+      <p>{{ product.full_description }}</p>
       <h4 v-if="product.sale">
         {{ discountedPrice(product) * curr.curr | currency(curr.symbol) }}
-        <del>{{ product.price * curr.curr | currency(curr.symbol) }}</del>
+        <del>{{ product.priceInMinorUnits * curr.curr | currency(curr.symbol) }}</del>
       </h4>
-      <h4 v-else>{{ product.price * curr.curr | currency(curr.symbol) }}</h4>
+      <h4 v-else>{{ product.priceInMinorUnits * curr.curr | currency(curr.symbol) }}</h4>
     </div>
   </div>
 </template>

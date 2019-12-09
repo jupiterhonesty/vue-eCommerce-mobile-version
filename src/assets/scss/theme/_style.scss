@@ -13649,8 +13649,20 @@ left: unset;
 // .swiper-container.swiper-container-initialized.swiper-container-horizontal .home.text-center.p-left {
 //   height: unset!important;
 // }
-
+.r-img {
+  position: absolute;
+  left: 0;
+}
 .nopadding {
   padding: 0 !important;
   margin: 0 !important;
+}
+
+header {
+    position: fixed; 
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.5);
 }

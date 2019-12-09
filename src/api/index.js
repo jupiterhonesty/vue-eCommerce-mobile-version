@@ -12,9 +12,8 @@ var openapi_server = axios.create({
 
 const getConfig = headerparams => { return { headers: { 'authorization': localStorage.getItem('lvlacc') || 'newnlp', ...headerparams } }; };
 
-export const getAppToken = params => { return { ...params, t: 'VS7pUqD2MCog34t0BpL5riewpmh9TvHQgK00f665Xpr89XkS6Yfe33ovoqA6uXbX', c: 'ef64d5b2bb72' } }
-export const getAccount = params => { return openapi_server.get(`/startweb.php?to=${params.t}&cs=${params.c}`) }
-export const getAccountNoCache = headerparams => { return openapi_server.get(`/account.php?nocache=${new Date().getTime()}`, getConfig(headerparams)) }
+export const getToken = params => { return openapi_server.get(`/startweb.php?to=${params.t}&cs=${params.c}`) }
+export const getAccount = headerparams => { return openapi_server.get(`/account.php?nocache=${new Date().getTime()}`, getConfig(headerparams)) }
 export const getProducts = headerparams => { return openapi_server.get(`/productlist.php?nocache=${new Date().getTime()}`, getConfig(headerparams)) }
 export const getShopingcart = headerparams => { return openapi_server.get(`/shoppingcart.php?f=get&nocache=${new Date().getTime()}`, getConfig(headerparams)) }
 export const updateShopingcart = (params, headerparams) => { return openapi_server.get(`/shoppingcart.php?f=update&pid=${params.productid}&qty=${params.qtyplusone}&nocache=${new Date().getTime()}`, getConfig(headerparams)) }

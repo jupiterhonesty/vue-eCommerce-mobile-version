@@ -8,15 +8,15 @@
       <div class="front">
         <router-link :to="{ path: '/product/sidebar/'+product.id}">
           <img
-            :src='getImgUrl(imageSrc ? imageSrc : product.images[0].src)'
+            :src='product.productPictureURL'
             :id="product.id"
             class="img-fluid bg-img"
-            :alt="product.title"
+            :alt="product.productName"
             :key="index"
           />
         </router-link>
       </div>
-      <ul class="product-thumb-list">
+      <!-- <ul class="product-thumb-list">
         <li
           class="grid_thumb_img"
           :class="{active: imageSrc == image.src}"
@@ -27,7 +27,7 @@
             <img :src="getImgUrl(image.src)" />
           </a>
         </li>
-      </ul>
+      </ul> -->
       <div class="cart-info cart-wrap">
           <button
             data-toggle="modal"
@@ -67,7 +67,7 @@
         <del>{{ product.price * curr.curr | currency(curr.symbol) }}</del>
       </h4>
       <h4 v-else>{{ product.price * curr.curr | currency(curr.symbol) }}</h4>
-      <ul class="color-variant" v-if="product.variants[0].color">
+      <!-- <ul class="color-variant" v-if="product.variants[0].color">
         <li v-for="(variant,variantIndex) in Color(product.variants)" :key="variantIndex">
           <a
             @click="productColorchange(variant, product)"
@@ -75,7 +75,7 @@
             v-bind:style="{ 'background-color' : variant}"
           ></a>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </div>
 </template>

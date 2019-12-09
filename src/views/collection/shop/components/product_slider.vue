@@ -5,17 +5,18 @@
         <div class="row">
           <div class="col nopadding">
             <div class="title4">
-              <h2 class="title-inner4">{{title}}</h2>
-              <!-- <div class="line">
+              <h2 class="title-inner4">{{products.grouptitle}}</h2>
+              <h4>{{products.groupsubtitle}}</h4>
+              <div class="line">
                 <span></span>
-              </div> -->
+              </div>
             </div>
             <div v-swiper:mySwiper="swiperOption">
               <div class="swiper-wrapper">
                
                 <div
                   class="swiper-slide"
-                  v-for="(product,index) in products"
+                  v-for="(product,index) in products.products"
                   :key="index"
                 >
                   <div class="product-box">
@@ -47,7 +48,7 @@
   </div>
 </template>
 <script>
-import productBox from '@/components/product-box'
+import productBox from '@/components/product-box/home-product-box'
 export default {
   props: ['products'],
   components: {

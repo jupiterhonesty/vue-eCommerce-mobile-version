@@ -9,7 +9,7 @@
               <div
                 class="home text-center"
                 :class="item.alignclass"
-                v-bind:style="{ 'background-image': 'url(' + item.imagepath + ')' }"
+                v-bind:style="{ 'background-image': 'linear-gradient(rgba(0, 170, 231, 0.75), rgba(0, 170, 231, 0.75)), url(' + item.imagepath + ')' }"
               >
                 <div class="container">
                   <div class="row">

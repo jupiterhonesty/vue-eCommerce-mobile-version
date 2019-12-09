@@ -1,8 +1,8 @@
 import products from '../../../data/products'
 
 const state = {
-  productslist: [],
-  products: [],
+  productslist: products.data,
+  products: products.data,
   wishlist: [],
   compare: [],
   currency: {
@@ -11,19 +11,24 @@ const state = {
   },
   order: [],
   locale: 'en',
-  searchProduct: []
+  searchProduct: [],
+  loaded:false
 }
 // getters
 const getters = {
+  getLoaded:state=>{
+    return state.loaded
+  },
   getcollectionProduct: (state) => {
     return collection => state.products.filter((product) => {
       return collection === product.collection
     })
   },
-  getProductById: (state) => {
-    return id => state.products.find((product) => {
-      return product.id === +id
-    })
+  getProductById: (state) => id => {
+    for(let group of state.products) {
+      var product = group.products.find((obj)=> obj.id === +id)   
+      if(product) return product
+    }
   },
   compareItems: (state) => {
     return state.compare
@@ -55,6 +60,7 @@ const mutations = {
   setProducts:(state,payload)=>{
     state.products = payload
     state.productslist = payload    
+    state.loaded = true
   },
   changeCurrency: (state, payload) => {
     state.currency = payload

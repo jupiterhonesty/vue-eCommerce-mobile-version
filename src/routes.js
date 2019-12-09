@@ -2,14 +2,20 @@ import Home from './views/home'
 import Login from './views/page/account/login'
 import Register from './views/page/account/register'
 import RegisterConfirm from './views/page/account/registerConfirm'
-import AppLogin from './views/page/app-account/login'
+import AsyncAppStart from './views/page/app-account/asyncAppStart'
 import Shop from './views/collection/shop'
+import Product from './views/product'
 let routes = [
 
   {
     path: '/',//app version
     name: 'appstart',
-    redirect: { path: '/page/app-account/login' }
+    redirect: { path: '/page/app-account/asyncappstart' }
+  },
+  {
+    path: '/page/app-account/asyncappstart',
+    name:'asyncappstart',
+    component: AsyncAppStart
   },
   {
     path: '/home',
@@ -37,12 +43,13 @@ let routes = [
     name: 'shop',
     component: Shop
   },
-
   {
-    path: '/page/app-account/login',
-    name:'applogin',
-    component: AppLogin
+    path:'/product/sidebar/:id',
+    name: 'product',
+    component: Product
   }
+
+ 
 ];
 
 export default routes;

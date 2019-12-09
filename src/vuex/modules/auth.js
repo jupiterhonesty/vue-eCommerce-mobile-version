@@ -26,7 +26,7 @@ const getters = {
     },
     appUserAuthed: state => {
         return state.app_user.authenticated;
-    }
+    },    
 }
 const mutations = {
     findUser: async (state) => {
@@ -41,12 +41,16 @@ const mutations = {
             state.web_user.user = null;
         }
     },
-    setAppUser: (state, payload) => {
+    setAppUserToken: (state, payload) => {
         state.app_user.access_token = payload.data.appat;
         state.app_user.longitude = payload.data.longitude;
         state.app_user.latitude = payload.data.latitude;
         state.app_user.authenticated = true;
         state.web_user.authenticated = false;
+    },
+    setAppUserData: (state, payload) =>{
+        state.app_user.user = payload.data
+        state.app_user.temp_user = false;
     }
 
 }
@@ -55,8 +59,11 @@ const actions = {
     findUser: (context) => {
         context.commit("findUser")
     },
-    setAppUser: (context, payload) => {
-        context.commit('setAppUser', payload)
+    setAppUserToken: (context, payload) => {
+        context.commit('setAppUserToken', payload)
+    },
+    setAppUserData: (context, payload) =>{
+        context.commit('setAppUserData', payload)
     }
 }
 

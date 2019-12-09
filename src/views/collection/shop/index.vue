@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState,mapGetters } from 'vuex'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import quickviewModel from '@/components/widgets/quickview'
@@ -37,8 +37,8 @@ export default {
   },
   data() {
     return {
-      products: [],
-      category: [],
+      // products: [],
+      // category: [],
       showquickviewmodel: false,
       showcomparemodal: false,
       showcartmodal: false,
@@ -50,23 +50,26 @@ export default {
   computed: {
     ...mapState({
       productslist: state => state.products.productslist,      
+    }),
+    ...mapGetters({
+      cartItems :'cart/cartItems'
     })    
   },
   mounted() {
-    this.productsArray()
+    // this.productsArray()
   },
   methods: {
-    productsArray: function () {
-      this.productslist.map((item) => {
-        if (item.type === 'vegetables') {
-          this.products.push(item)
-          item.collection.map((i) => {
-            const index = this.category.indexOf(i)
-            if (index === -1) this.category.push(i)
-          })
-        }
-      })
-    },
+    // productsArray: function () {
+    //   this.productslist.map((item) => {
+    //     if (item.type === 'vegetables') {
+    //       this.products.push(item)
+    //       item.collection.map((i) => {
+    //         const index = this.category.indexOf(i)
+    //         if (index === -1) this.category.push(i)
+    //       })
+    //     }
+    //   })
+    // },
     showQuickview(item, productData) {
       this.showquickviewmodel = item
       this.quickviewproduct = productData
