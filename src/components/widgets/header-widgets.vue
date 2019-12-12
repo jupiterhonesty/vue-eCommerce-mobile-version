@@ -37,15 +37,15 @@
                         <li v-for="(product,index) in searchItems" :key="index" class="product-box">
                           <div class="img-wrapper">
                             <img
-                              :src='getImgUrl(product.images[0].src)'
+                              :src='product.productPictureURL'
                               class="img-fluid bg-img"
                               :key="index"
                             />
                           </div>
                           <div class="product-detail">
-                            <nuxt-link :to="{ path: '/product/sidebar/'+product.id}">
+                            <router-link :to="{ path: '/product/sidebar/'+product.id}">
                               <h6>{{ product.title }}</h6>
-                            </nuxt-link>
+                            </router-link>
                             <h4>{{ product.price * curr.curr | currency(curr.symbol) }}</h4>
                           </div>
                         </li>
@@ -92,15 +92,24 @@
           <ul class="show-div shopping-cart" v-if="cart.length">
             <li v-for="(item,index) in cart" :key="index">
               <div class="media">
-                <nuxt-link :to="{ path: '/product/sidebar/'+item.id}">
-                  <img alt class="mr-3" :src='getImgUrl(item.images[0].src)'>
-                </nuxt-link>
+                <router-link :to="{ path: '/product/sidebar/'+getDetail(item.id).id}">
+                   <img
+                    :src='require("@/assets/images/loader.gif")'            
+                    class="mr-3"           
+                  />
+                  <img
+                    :src='getDetail(item.id)&&getDetail(item.id).productPictureURL||require("@/assets/images/pro/1.jpg")'                   
+                    class="mr-3 r-img"
+                    :alt="item.desc"                   
+                  />                
+                </router-link>
                 <div class="media-body">
-                  <nuxt-link :to="{ path: '/product/sidebar/'+item.id}">
-                    <h4>{{item.title}}</h4>
-                  </nuxt-link>
+                  <router-link :to="{ path: '/product/sidebar/'+getDetail(item.id).id}">
+                    <h4>{{item.desc}}</h4>
+                  </router-link>
                   <h4>
-                    <span>{{item.quantity}} x {{ item.price | currency }}</span>
+                    <span>{{item.qty}} x {{ item.single_price_show }} {{item.discount_qty_amount_show}} = {{item.discounted_qty_price_show}}</span>
+                    <!-- <span>{{item.qty}} x {{ item.priceInMinorUnits | currency }}</span> -->
                   </h4>
                 </div>
               </div>
@@ -114,18 +123,19 @@
               <div class="total">
                 <h5>
                   subtotal :
-                  <span>{{ cartTotal | currency }}</span>
+                  <!-- <span>{{ cartTotal | currency }}</span> -->
+                  <span>{{ subTotal }}</span>
                 </h5>
               </div>
             </li>
             <li>
               <div class="buttons">
-                <nuxt-link :to="{ path: '/page/account/cart'}" :class="'view-cart'">
+                <router-link :to="{ path: '/page/account/cart'}" :class="'view-cart'">
                   view cart
-                </nuxt-link>
-                <nuxt-link :to="{ path: '/page/account/checkout'}" :class="'checkout'">
+                </router-link>
+                <router-link :to="{ path: '/page/account/checkout'}" :class="'checkout'">
                   checkout
-                </nuxt-link>
+                </router-link>
               </div>
             </li>
           </ul>
@@ -151,13 +161,13 @@ export default {
     ...mapGetters({
       cart: 'cart/cartItems',
       cartTotal: 'cart/cartTotalAmount',
-      curr: 'products/changeCurrency'
-    })
+      subTotal: 'cart/subTotalAmount',
+      curr: 'products/changeCurrency',
+      getDetail: 'products/getProductByProductId'
+    }),
+   
   },
   methods: {
-    getImgUrl(path) {
-      return require('@/assets/images/' + path)
-    },
     openSearch() {
       this.search = true
     },

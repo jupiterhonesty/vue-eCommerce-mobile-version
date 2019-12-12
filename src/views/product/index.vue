@@ -7,7 +7,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-3">
-            <productSidebar />
+            <!-- <productSidebar /> -->
             </div>
             <div class="col-lg-9 col-sm-12 col-xs-12 productdetail">
               <div class="container-fluid">
@@ -26,9 +26,9 @@
                             />
                           <img
                             :src="getDetail.productPictureURL||require('@/assets/images/pro/1.jpg')"
-                            :id="product.image_id"
+                            :id="index"
                             class="img-fluid bg-img r-img"
-                            :alt="product.alt"
+                            :alt="`product${index}`"
                           />
                         </div>
                       </div>
@@ -48,9 +48,9 @@
                                   />
                                 <img
                                   :src="getDetail.productPictureURL||require('@/assets/images/pro/1.jpg')"
-                                  :id="product.image_id"
+                                  :id="index"
                                   class="img-fluid bg-img r-img"
-                                  :alt="product.alt"
+                                  :alt="`product${index}`"
                                 />
                             </div>
                           </div>
@@ -81,7 +81,7 @@
                         </li>
                       </ul> -->
                       <div class="product-description border-product">
-                        <h6 class="product-title size-text">
+                        <!-- <h6 class="product-title size-text">
                           select size
                           <span>
                             <a href="javascript:void(0)" v-b-modal.modal-1>size chart</a>
@@ -101,7 +101,7 @@
                               >{{size}}</a>
                             </li>
                           </ul>
-                        </div>
+                        </div> -->
                         <h5 class="avalibility" v-if="counter <= qty">
                           <span>In Stock</span>
                         </h5>
@@ -150,7 +150,14 @@
                             @click="addToCart(getDetail, counter)"
                           >Add To Cart</button>
                         </router-link>
-                        <a href="javascript:void(0)" @click="buyNow(getDetail, counter)" class="btn btn-solid">buy now</a>
+                         <router-link :to="{ path: '/page/account/checkout'}">
+                          <button
+                            class="btn btn-solid"
+                            title="Add to cart"
+                            @click="buyNow(getDetail, counter)"
+                          >buy now</button>
+                        </router-link>
+                        <!-- <a href="javascript:void(0)" @click="buyNow(getDetail, counter)" class="btn btn-solid">buy now</a> -->
                       </div>
                       <div class="border-product">
                         <h6 class="product-title">product details</h6>
@@ -343,14 +350,14 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import Breadcrumbs from '@/components/widgets/breadcrumbs'
 import Timer from '@/components/widgets/timer'
-import productSidebar from '@/components/widgets/product-sidebar'
+// import productSidebar from '@/components/widgets/product-sidebar'
 export default {
   components: {
     Header,
     Footer,
     Breadcrumbs,
     Timer,
-    productSidebar
+    // productSidebar
   },
   data() {
     return {
@@ -391,11 +398,11 @@ export default {
   mounted() {
     // For displaying default color and size on pageload
 
-    this.uniqColor = this.getDetail.variants[0].color
-    this.sizeVariant(this.getDetail.variants[0].image_id)
+    // this.uniqColor = this.getDetail.variants[0].color
+    // this.sizeVariant(this.getDetail.variants[0].image_id)
     // Active default color
     this.activeColor = this.uniqColor
-    this.changeSizeVariant(this.getDetail.variants[0].size)
+    // this.changeSizeVariant(this.getDetail.variants[0].size)
   },
   methods: {
     priceCurrency: function () {
@@ -420,17 +427,17 @@ export default {
     },
     // add to cart
     addToCart: function (product, qty) {
-      product.quantity = qty || 1
-      this.$store.dispatch('cart/addToCart', product)
+      // product.qty = product.qty + qty || 1
+      this.$store.dispatch('cart/addToCart', {product,qty})
     },
     buyNow: function (product, qty) {
-      product.quantity = qty || 1
-      this.$store.dispatch('cart/addToCart', product)
-      this.$router.push('/page/account/checkout')
+      // product.qty = product.qty + qty || 1
+      this.$store.dispatch('cart/addToCart', {product,qty})
+      // this.$router.push('/page/account/checkout')
     },
     // Item Count
     increment() {
-      if (this.counter < this.getDetail.stock) this.counter++
+      if (this.counter < this.getDetail.quantity) this.counter++
     },
     decrement() {
       if (this.counter > 1) this.counter--
@@ -438,9 +445,6 @@ export default {
     // Change size variant
     changeSizeVariant(variant) {
       this.selectedSize = variant
-    },
-    getImgUrl(path) {
-      return require('@/assets/images/' + path)
     },
     slideTo(id) {
       this.swiper.slideTo(id, 1000, false)

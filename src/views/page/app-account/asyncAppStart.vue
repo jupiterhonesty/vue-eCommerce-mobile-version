@@ -1,5 +1,4 @@
 <template>
-    <!-- <LogoTop /> -->
     <div class="container">
      <img
             :src='require("@/assets/images/ajax-loader.gif")'            
@@ -8,15 +7,11 @@
     </div>
 </template>
 <script>
-import LogoTop from '@/components/widgets/logotop';
 import * as api from '@/api'
 import { mapGetters } from "vuex";
 
 
 export default {
-  components: {
-    LogoTop
-  },
   computed: {
     ...mapGetters({
       globalError: "getGlobalError",
@@ -60,7 +55,7 @@ export default {
         dispatch('products/setProducts',products)
       }    
       var shoppingCart = await api.getShopingcart({'authorization':data.data.appat})
-      // dispatch('cart/setShoppingCart',shoppingCart)    
+      dispatch('cart/setShoppingCart',shoppingCart)    
       this.$router.push({name:'shop'})
     }
 
@@ -87,7 +82,7 @@ export default {
           dispatch('products/setProducts',products)
         }    
         var shoppingCart = await api.getShopingcart({'authorization':data.data.appat})
-        // dispatch('cart/setShoppingCart',shoppingCart)    
+        dispatch('cart/setShoppingCart',shoppingCart)    
         this.$router.push({name:'shop'})
     }
   }

@@ -30,6 +30,12 @@ const getters = {
       if(product) return product
     }
   },
+  getProductByProductId:(state)=>productId=>{
+    for(let group of state.products) {
+      var product = group.products.find((obj)=> obj.productId === +productId)   
+      if(product) return product
+    }
+  },
   compareItems: (state) => {
     return state.compare
   },

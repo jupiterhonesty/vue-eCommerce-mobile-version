@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-import productBox from '@/components/product-box'
+import productBox from '@/components/product-box/home-product-box'
 export default {
   props: ['products'],
   components: {

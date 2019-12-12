@@ -41,7 +41,7 @@
           data-toggle="modal"
           data-target="#addtocart"
           class="add-button add_cart"
-          @click="addToCart(product)"
+          @click="addToCart(product,1)"
         >
           add to cart
         </button>
@@ -99,10 +99,10 @@ export default {
     getImgUrl(path) {
       return require('@/assets/images/' + path)
     },
-    addToCart: function (product) {
+    addToCart: function (product,qty) {
       this.cartval = true
       this.$emit('opencartmodel', this.cartval)
-      this.$store.dispatch('cart/addToCart', product)
+      this.$store.dispatch('cart/addToCart', {product,qty})
     },
     addToWishlist: function (product) {
       this.dismissCountDown = this.dismissSecs

@@ -27,6 +27,7 @@ const getters = {
     appUserAuthed: state => {
         return state.app_user.authenticated;
     },    
+    getAppUserToken: state => state.app_user.access_token
 }
 const mutations = {
     findUser: async (state) => {

@@ -15,15 +15,23 @@
           <ul class="cart_product">
             <li v-for="(item,index) in cart" :key="index">
               <div class="media">
-                <router-link :to="{ path: '/product/sidebar/'+item.id}">
-                  <img alt class="mr-3" :src='getImgUrl(item.images[0].src)'>
+                <router-link :to="{ path: '/product/sidebar/'+getDetail(item.id).id}">
+                  <img
+                    :src='require("@/assets/images/loader.gif")'            
+                    class="mr-3"           
+                  />
+                  <img
+                    :src='getDetail(item.id)&&getDetail(item.id).productPictureURL||require("@/assets/images/pro/1.jpg")'                   
+                    class="mr-3 r-img"
+                    :alt="item.desc"                   
+                  />              
                 </router-link>
                 <div class="media-body">
-                  <router-link :to="{ path: '/product/sidebar/'+item.id}">
-                    <h4>{{item.title}}</h4>
+                  <router-link :to="{ path: '/product/sidebar/'+getDetail(item.id).id}">
+                    <h4>{{item.desc}}</h4>
                   </router-link>
                   <h4>
-                    <span>{{item.quantity}} x {{ item.price * curr.curr | currency(curr.symbol) }}</span>
+                    <span>{{item.qty}} x {{ item.single_price_show }} {{item.discount_qty_amount_show}} = {{item.discounted_qty_price_show}}</span>
                   </h4>
                 </div>
               </div>
@@ -39,7 +47,7 @@
               <div class="total">
                 <h5>
                   subtotal :
-                  <span>{{ cartTotal * curr.curr | currency(curr.symbol) }}</span>
+                  <span>{{ cartTotal }}</span>
                 </h5>
               </div>
             </li>
@@ -59,7 +67,7 @@
               <h4 class="mt-3">
                 <strong>Your Cart is Empty</strong>
               </h4>
-              <router-link :to="{ path: '/'}" class="btn btn-solid">continue shopping</router-link>
+              <router-link :to="{ path: '/collection/shop'}" class="btn btn-solid">continue shopping</router-link>
             </div>
       </div>
     </div>
@@ -75,15 +83,13 @@ export default {
     }),
     ...mapGetters({
       cart: 'cart/cartItems',
-      cartTotal: 'cart/cartTotalAmount',
-      curr: 'products/changeCurrency'
+      cartTotal: 'cart/subTotalAmount',
+      curr: 'products/changeCurrency',
+      getDetail: 'products/getProductByProductId'
     })
   },
   methods: {
-    // Get Image Url
-    getImgUrl(path) {
-      return require('@/assets/images/' + path)
-    },
+ 
     closeCart(val) {
       val = false
       this.$emit('closeCart', val)

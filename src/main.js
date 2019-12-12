@@ -13,6 +13,7 @@ import PayPal from 'vue-paypal-checkout'
 import VueLazyLoad from 'vue-lazyload'
 import BootStrapVue from 'bootstrap-vue'
 import store from './vuex/store'
+import * as VueGoogleMaps from "vue2-google-maps";
 
 /**** CSS Import ****/
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -32,6 +33,12 @@ Vue.use(InfiniteLoading)
 Vue.component('paypal-checkout', PayPal)
 Vue.use(VueLazyLoad)
 Vue.use(BootStrapVue)
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: "AIzaSyDN8W7bJMK4jqFzWFBeeBFwnrm8uTkrm7k",
+    libraries: "places"
+  }
+});
 
 const { dispatch, getters } = store  
 

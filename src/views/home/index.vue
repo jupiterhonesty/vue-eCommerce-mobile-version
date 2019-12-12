@@ -3,7 +3,7 @@
     <Header />
     <Slider />
     <Services />
-    <ProductSlider :products="products" @openQuickview="showQuickview" @openCompare="showCoampre" @openCart="showCart" />
+    <!-- <ProductSlider :products="products" @openQuickview="showQuickview" @openCompare="showCoampre" @openCart="showCart" /> -->
     <Banner />
     <SpecialProducts :products="products" :category="category" @openQuickview="showQuickview" @openCompare="showCoampre" @openCart="showCart" />
     <Blog />
@@ -25,7 +25,7 @@ import cartModalPopup from '../../components/cart-model'
 import newsletterModel from '../../components/widgets/newsletter-popup'
 import Slider from '@/components/widgets/slider'
 import Services from './components/services'
-import ProductSlider from '@/components/widgets/product_slider'
+// import ProductSlider from '@/components/widgets/product_slider'
 import Banner from './components/banner'
 import SpecialProducts from './components/special_products'
 import Blog from './components/blog'
@@ -35,7 +35,6 @@ export default {
     Header,
     Slider,
     Services,
-    ProductSlider,
     Banner,
     SpecialProducts,
     Blog,

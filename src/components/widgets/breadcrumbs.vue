@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="breadcrumb-section">
+    <div class="breadcrumb-section bread-mt">
       <div class="container">
         <div class="row">
           <div class="col-sm-6">
@@ -12,7 +12,7 @@
             <nav aria-label="breadcrumb" class="theme-breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <router-link :to="{ path: '/' }">Home</router-link>
+                  <router-link :to="{ path: '/collection/shop' }">SHOP</router-link>
                 </li>
                 <li class="breadcrumb-item active" v-if="title">{{ title }}</li>
               </ol>

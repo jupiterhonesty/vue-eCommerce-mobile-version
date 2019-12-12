@@ -5,6 +5,8 @@ import RegisterConfirm from './views/page/account/registerConfirm'
 import AsyncAppStart from './views/page/app-account/asyncAppStart'
 import Shop from './views/collection/shop'
 import Product from './views/product'
+import Cart from './views/page/account/cart'
+import Checkout from './views/page/account/checkout'
 let routes = [
 
   {
@@ -47,6 +49,16 @@ let routes = [
     path:'/product/sidebar/:id',
     name: 'product',
     component: Product
+  },
+  {
+    path:'/page/account/cart',
+    name: 'cart',
+    component: Cart
+  },
+  {
+    path:'/page/account/checkout',
+    name: 'checkout',
+    component: Checkout
   }
 
  
