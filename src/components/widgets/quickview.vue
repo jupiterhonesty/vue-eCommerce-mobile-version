@@ -53,7 +53,7 @@
             </div>
             <div class="border-product">
               <h6 class="product-title">product details</h6>
-              <p>{{productData.description.substring(0,250)+"...."}}</p>
+              <p>{{getDetail.full_description&&productData.description.substring(0,250)+"...."}}</p>
             </div>
             <div class="product-buttons">
               <a href="javascript:void(0)" @click="addToCart(product)" class="btn btn-solid">add to cart</a>

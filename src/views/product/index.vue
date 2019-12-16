@@ -161,7 +161,7 @@
                       </div>
                       <div class="border-product">
                         <h6 class="product-title">product details</h6>
-                        <p>{{getDetail.full_description.substring(0,200)+"...."}}</p>
+                        <p>{{getDetail.full_description&&getDetail.full_description.substring(0,200)+"...."}}</p>
                       </div>
                       <div class="border-product">
                         <h6 class="product-title">share it</h6>

@@ -27,7 +27,7 @@
                           class="mr-3 rr-img"  
                       />
                       <img
-                        :src='getDetail(item.id)&&getDetail(item.id).productPictureURL||require("@/assets/images/pro/1.jpg")'                   
+                        :src='getDetail(item.id).productPictureURL||require("@/assets/images/pro/1.jpg")'                   
                         class="mr-3 rr-img"
                         :alt="item.desc"                   
                       />        

@@ -98,7 +98,7 @@
                     class="mr-3"           
                   />
                   <img
-                    :src='getDetail(item.id)&&getDetail(item.id).productPictureURL||require("@/assets/images/pro/1.jpg")'                   
+                    :src='getDetail(item.id).productPictureURL||require("@/assets/images/pro/1.jpg")'                   
                     class="mr-3 r-img"
                     :alt="item.desc"                   
                   />                

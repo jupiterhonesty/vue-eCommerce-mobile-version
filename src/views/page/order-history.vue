@@ -2,6 +2,14 @@
   <div>
     <Header />
     <Breadcrumbs title="Order history" />
+     <section class="p-0" v-if="!order_history">
+      <div class="container">
+        <img
+          :src='require("@/assets/images/ajax-loader.gif")'            
+          class="img-fluid bg-img w-100"           
+        />
+      </div>
+    </section>
     <section class="section-b-space">
       <div class="container">
         <div class="checkout-page">
@@ -29,7 +37,7 @@
                                     class="mr-3 rrr-img w-100"  
                                 />
                                 <img
-                                  :src='getDetail(item.id)&&getDetail(item.id).productPictureURL||require("@/assets/images/pro/1.jpg")'                   
+                                  :src='getDetail(item.id).productPictureURL||require("@/assets/images/pro/1.jpg")'                   
                                   class="mr-3 rrr-img w-100"
                                   :alt="item.desc"                   
                                 />        
@@ -119,6 +127,8 @@ import { mapGetters } from 'vuex'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import Breadcrumbs from '@/components/widgets/breadcrumbs'
+import * as api from '@/api'
+
 export default {
   data() {
     return {
@@ -134,8 +144,14 @@ export default {
     ...mapGetters({
        order_history:'cart/order_history',
        getDetail: 'products/getProductByProductId',
+       getAuth: 'auth/getAppUserToken'
     })
   },
+  async mounted() {
+     var  {dispatch} = this.$store
+     var orderhistory = await api.orderHistory({'authorization':this.getAuth})
+     dispatch('cart/setOrderhistory', orderhistory)
+  }
 
 }
 </script>
