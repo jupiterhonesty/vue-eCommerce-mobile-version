@@ -20,3 +20,4 @@ export const updateShopingcart = (params, headerparams) => { return openapi_serv
 export const updatePayment = (params, headerparams) => { return openapi_server.get(`shoppingcart.php?f=setpayment&pmtid=${params.to_payment_type}&nocache=${new Date().getTime()}`, getConfig(headerparams)) }
 export const shopingcartOrder = (params, headerparams) => { return openapi_server.get(`shoppingcart.php?f=placeorder&long=${params.longitude}&lat=${params.latitude}&nocache=${new Date().getTime()}`, getConfig(headerparams)) }
 export const shopingcartAdd = (params, headerparams) => { return openapi_server.get(`shoppingcart.php?f=add&pid=${params.product_id}&nocache=${new Date().getTime()}`, getConfig(headerparams)) }
+export const orderHistory = (headerparams) => {return openapi_server.get(`/orderhistory.php?f=get&limit=3&nocache=${new Date().getTime()}`,getConfig(headerparams)) }

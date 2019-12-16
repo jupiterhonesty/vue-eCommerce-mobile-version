@@ -7,6 +7,8 @@ import Shop from './views/collection/shop'
 import Product from './views/product'
 import Cart from './views/page/account/cart'
 import Checkout from './views/page/account/checkout'
+import Ordersuccess from './views/page/order-success'
+import Orderhistory from './views/page/order-history'
 let routes = [
 
   {
@@ -59,6 +61,16 @@ let routes = [
     path:'/page/account/checkout',
     name: 'checkout',
     component: Checkout
+  },
+  {
+    path:'/page/order-success',
+    name: 'ordersuccess',
+    component: Ordersuccess
+  },
+  {
+    path:'/page/order-history',
+    name: 'orderhistory',
+    component: Orderhistory
   }
 
  

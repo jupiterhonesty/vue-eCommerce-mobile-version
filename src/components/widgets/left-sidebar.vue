@@ -17,7 +17,8 @@
             <router-link :to="{ path: '/collection/shop' }">Shop</router-link>           
            </li>
            <li>
-            <router-link :to="{ path: '/' }">Products</router-link>           
+             <router-link :to="{ path: '/page/order-history' }">Order History</router-link>           
+
            </li>
           <li>
            <router-link v-if="!signedIn" :to="{ path: '/page/account/login' }">Login/Signup</router-link>
@@ -25,8 +26,9 @@
            </li>
            
        </ul>
-    </nav>
+    </nav>    
   </div>
+  
 </template>
 
 <script>
@@ -41,7 +43,7 @@ export default {
   },
   computed:{
     ...mapGetters({
-      signedIn:'auth/signedIn'
+      signedIn:'auth/signedIn',
     })
   },
   methods: {

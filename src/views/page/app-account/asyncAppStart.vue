@@ -56,6 +56,8 @@ export default {
       }    
       var shoppingCart = await api.getShopingcart({'authorization':data.data.appat})
       dispatch('cart/setShoppingCart',shoppingCart)    
+      var orderhistory = await api.orderHistory({'authorization':data.data.appat})
+      dispatch('cart/setOrderhistory', orderhistory)
       this.$router.push({name:'shop'})
     }
 

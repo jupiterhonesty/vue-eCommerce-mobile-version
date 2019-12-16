@@ -6,7 +6,9 @@ const state = {
   payment_type: 1,
   app_link:null,
   order_id:null,
-  message:""
+  message:"",
+  ordered:false,
+  orderhistory:null
 }
 // getters
 const getters = {
@@ -18,17 +20,23 @@ const getters = {
     // return state.cart.reduce((total, product) => {
     //   return total + (product.priceInMinorUnits * product.qty)
     // }, 0)
-    return state.base_cart.web_total_lines.find(e=>e.type==='ordertotal').value_show
+    return state.base_cart&&state.base_cart.web_total_lines.find(e=>e.type==='ordertotal').value_show
   },
-  subTotalAmount:state=>state.base_cart.web_total_lines.find(e=>e.type==='subtotal').value_show,
-  webTotalLines: (state)=>state.base_cart.web_total_lines,
-  taxAmount: state=>state.base_cart.web_total_lines.find(e=>e.type==='taxesfees').value_show,
-  deliverAmount: state=>state.base_cart.web_total_lines.find(e=>e.type==='delivery').value_show,  
-  webTotalDetails: state=>state.base_cart.web_total_details
+  subTotalAmount:state=>state.base_cart&&state.base_cart.web_total_lines.find(e=>e.type==='subtotal').value_show,
+  webTotalLines: (state)=>state.base_cart&&state.base_cart.web_total_lines,
+  taxAmount: state=>state.base_cart&&state.base_cart.web_total_lines.find(e=>e.type==='taxesfees').value_show,
+  deliverAmount: state=>state.base_cart&&state.base_cart.web_total_lines.find(e=>e.type==='delivery').value_show,  
+  webTotalDetails: state=>state.base_cart&&state.base_cart.web_total_details,
+  getOrderID: state=>state.order_id,
+  ordered:state=>state.ordered,
+  order_history:state=>state.orderhistory
 
 }
 // mutations
 const mutations = {
+  setOrderhistory: (state,payload) =>{
+    state.orderhistory = payload.data
+  },
   paymentSelectAndOder: (state, payload) =>{
     state.payment_type = payload.payment_type
     api.updatePayment({to_payment_type: payload.payment_type},{'authorization': payload.token}).then(val=>{
@@ -39,10 +47,12 @@ const mutations = {
             state.message = "Your shopping cart order was placed!";
             state.order_id = order_status.order_id;
             state.app_link = "highland://?confirmation=1312";
+            state.ordered = true
+            // payload.onPaymentComplete(order_status)
         } else {
             state.message = "Problem with your shopping cart order! ";
         }
-        state.base_cart = null
+        // state.base_cart = null
         state.cart = [];
         state.cart_count = 0;
       })
@@ -122,6 +132,9 @@ const mutations = {
 }
 // actions
 const actions = {
+  setOrderhistory: (context, payload) =>{
+    context.commit('setOrderhistory',payload)
+  },
   paymentSelectAndOder: (context, payload) =>{
     
     context.commit('paymentSelectAndOder',{...payload, token:context.rootGetters['auth/getAppUserToken'],appUser:context.rootState.auth.app_user})
