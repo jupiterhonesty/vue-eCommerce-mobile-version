@@ -11,7 +11,7 @@
     <quickviewModel :openModal="showquickviewmodel" :productData="quickviewproduct" />
     <compareModel :openCompare="showcomparemodal" :productData="comapreproduct" @closeCompare="closeCompareModal" />
     <cartModalPopup :openCart="showcartmodal" @closeCart="closeCart" />
-    <newsletterModel />
+    <!-- <newsletterModel /> -->
   </div>
 </template>
 
@@ -22,7 +22,7 @@ import Footer from '../../components/footer'
 import quickviewModel from '../../components/widgets/quickview'
 import compareModel from '../../components/widgets/compare-popup'
 import cartModalPopup from '../../components/cart-model'
-import newsletterModel from '../../components/widgets/newsletter-popup'
+// import newsletterModel from '../../components/widgets/newsletter-popup'
 import Slider from '@/components/widgets/slider'
 import Services from './components/services'
 // import ProductSlider from '@/components/widgets/product_slider'
@@ -42,7 +42,7 @@ export default {
     quickviewModel,
     compareModel,
     cartModalPopup,
-    newsletterModel
+    // newsletterModel
   },
   data() {
     return {

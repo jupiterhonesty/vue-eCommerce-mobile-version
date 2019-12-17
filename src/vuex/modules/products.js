@@ -55,7 +55,7 @@ const getters = {
       state.currency.curr = 0.78
       return state.currency
     } else if (state.currency.curr === 'usd') {
-      state.currency.curr = 1
+      state.currency.curr = 0.01
       return state.currency
     }
   },

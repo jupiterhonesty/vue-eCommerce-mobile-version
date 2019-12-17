@@ -29,7 +29,7 @@
                       <ul class="qty"  v-if="order.order_data.items.length">  
                         <li v-for="(item,index) in order.order_data.items" :key="index">
                           <div class="row">
-                            <div class="col-3">
+                            <!-- <div class="col-3">
                                <router-link :to="{ path: '/product/sidebar/'+getDetail(item.id).id}">
                               
                                 <img
@@ -42,10 +42,10 @@
                                   :alt="item.desc"                   
                                 />        
                               </router-link>
-                            </div>
-                            <div class="col-9 pl-5">
+                            </div> -->
+                            <div class="col-12 pl-5">
                               <div class="row">
-                                <div class="col-12"><router-link :to="{ path: '/product/sidebar/'+getDetail(item.id).id}">{{ item.desc }} </router-link> </div>
+                                <div class="col-12">{{ item.desc }} </div>
                                 <div class="col-12">coupon-code: {{item.discount_code}}</div>
                                 <div class="col-12">{{item.qty}} X {{ item.single_price_show }} {{item.discount_qty_amount_show}} = {{item.discounted_qty_price_show}}</div>                    
                               </div>

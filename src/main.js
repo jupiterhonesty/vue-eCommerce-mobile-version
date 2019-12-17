@@ -9,7 +9,6 @@ import VueAwesomeSwiper from 'vue-awesome-swiper/dist/ssr'
 import Vue2Filters from 'vue2-filters'
 import { VueMasonryPlugin } from 'vue-masonry'
 import InfiniteLoading from 'vue-infinite-loading'
-import PayPal from 'vue-paypal-checkout'
 import VueLazyLoad from 'vue-lazyload'
 import BootStrapVue from 'bootstrap-vue'
 import store from './vuex/store'
@@ -30,7 +29,6 @@ Vue.use(VueAwesomeSwiper)
 Vue.use(Vue2Filters)
 Vue.use(VueMasonryPlugin)
 Vue.use(InfiniteLoading)
-Vue.component('paypal-checkout', PayPal)
 Vue.use(VueLazyLoad)
 Vue.use(BootStrapVue)
 Vue.use(VueGoogleMaps, {

@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="page-title">
-              <h2>{{ title }}</h2>
+              <h2 class="text-capitalize">{{ title }}</h2>
             </div>
           </div>
           <div class="col-sm-6">

@@ -81,33 +81,8 @@
                 </div>
               </div>
             </div>
-            <div class="col offset-xl-1">
-              <div class="sub-title">
-                <div class="footer-title">
-                  <h4>my account</h4>
-                </div>
-                <div class="footer-contant">
-                  <ul>
-                    <li>
-                      <a href="#">mens</a>
-                    </li>
-                    <li>
-                      <a href="#">womens</a>
-                    </li>
-                    <li>
-                      <a href="#">clothing</a>
-                    </li>
-                    <li>
-                      <a href="#">accessories</a>
-                    </li>
-                    <li>
-                      <a href="#">featured</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col">
+          
+            <!-- <div class="col">
               <div class="sub-title">
                 <div class="footer-title">
                   <h4>why we choose</h4>
@@ -132,7 +107,7 @@
                   </ul>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="col">
               <div class="sub-title">
                 <div class="footer-title">
@@ -170,37 +145,7 @@
                 </p>
               </div>
             </div>
-            <div class="col-xl-6 col-md-6 col-sm-12">
-              <div class="payment-card-bottom">
-                <ul>
-                  <li>
-                    <a href="#">
-                      <img :src='"@/assets/images/icon/visa.png"' alt />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img :src='"@/assets/images/icon/mastercard.png"' alt />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img :src='"@/assets/images/icon/paypal.png"' alt />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img :src='"@/assets/images/icon/american-express.png"' alt />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img :src='"@/assets/images/icon/discover.png"' alt />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+      
           </div>
         </div>
       </div>

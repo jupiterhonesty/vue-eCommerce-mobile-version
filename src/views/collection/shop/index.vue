@@ -9,7 +9,7 @@
     <quickviewModel :openModal="showquickviewmodel" :productData="quickviewproduct" />
     <compareModel :openCompare="showcomparemodal" :productData="comapreproduct" @closeCompare="closeCompareModal" />
     <cartModalPopup :openCart="showcartmodal" @closeCart="closeCart" />
-    <newsletterModel />
+    <!-- <newsletterModel /> -->
   </div>
 </template>
 
@@ -20,7 +20,7 @@ import Footer from '@/components/footer'
 import quickviewModel from '@/components/widgets/quickview'
 import compareModel from '@/components/widgets/compare-popup'
 import cartModalPopup from '@/components/cart-model'
-import newsletterModel from '@/components/widgets/newsletter-popup'
+// import newsletterModel from '@/components/widgets/newsletter-popup'
 import Slider from '@/components/widgets/slider'
 import ProductSlider from './components/product_slider'
 
@@ -33,12 +33,10 @@ export default {
     quickviewModel,
     compareModel,
     cartModalPopup,
-    newsletterModel
+    // newsletterModel
   },
   data() {
     return {
-      // products: [],
-      // category: [],
       showquickviewmodel: false,
       showcomparemodal: false,
       showcartmodal: false,
@@ -54,22 +52,9 @@ export default {
     ...mapGetters({
       cartItems :'cart/cartItems'
     })    
-  },
-  mounted() {
-    // this.productsArray()
-  },
+  }, 
   methods: {
-    // productsArray: function () {
-    //   this.productslist.map((item) => {
-    //     if (item.type === 'vegetables') {
-    //       this.products.push(item)
-    //       item.collection.map((i) => {
-    //         const index = this.category.indexOf(i)
-    //         if (index === -1) this.category.push(i)
-    //       })
-    //     }
-    //   })
-    // },
+
     showQuickview(item, productData) {
       this.showquickviewmodel = item
       this.quickviewproduct = productData

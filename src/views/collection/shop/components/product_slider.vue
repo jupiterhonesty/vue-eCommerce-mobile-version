@@ -7,9 +7,9 @@
             <div class="title4">
               <h2 class="title-inner4">{{products.grouptitle}}</h2>
               <h4>{{products.groupsubtitle}}</h4>
-              <div class="line">
+              <!-- <div class="line">
                 <span></span>
-              </div>
+              </div> -->
             </div>
             <div v-swiper:mySwiper="swiperOption">
               <div class="swiper-wrapper">

@@ -7,7 +7,7 @@
       <div class="front text-center">
         <router-link :to="{ path: '/product/sidebar/'+product.id}">
          <img
-            :src='require("@/assets/images/loader.gif")'            
+            :src='require("@/assets/images/ajax-loader.gif")'            
             class="img-fluid bg-img w-100"           
           />
           <img
@@ -48,17 +48,17 @@
       </div>
     </div>
     <div class="product-detail text-center">
-      <div class="rating">
+      <!-- <div class="rating">
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
-      </div>
+      </div> -->
       <router-link :to="{ path: '/product/sidebar/'+product.id}">
         <h6>{{ product.productName }}</h6>
       </router-link>
-      <p>{{ product.full_description }}</p>
+      <p  class="d-block">{{ product.full_description.substring(0,50)+"...." }}</p>
       <h4 v-if="product.sale">
         {{ discountedPrice(product) * curr.curr | currency(curr.symbol) }}
         <del>{{ product.priceInMinorUnits * curr.curr | currency(curr.symbol) }}</del>

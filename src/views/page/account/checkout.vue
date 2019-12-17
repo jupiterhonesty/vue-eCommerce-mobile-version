@@ -96,10 +96,7 @@
                               <div class="radio-option paypal">
                                 <input type="radio" :value="false" v-model="debit" name="payment-group" id="payment-3" />
                                 <label for="payment-3">
-                                  Cash
-                                  <!-- <span class="image">
-                                    <img  :src='require("@/assets/images/paypal.png")' alt />
-                                  </span> -->
+                                  Cash                         
                                 </label>
                               </div>
                             </li>
@@ -181,10 +178,7 @@ export default {
         state: '',
         zipcode: ''
       },
-      isLogin: false,
-      paypal: {
-        sandbox: 'Your Sandbox'
-      },
+      isLogin: false,    
       debit: true,
       environment: 'sandbox',
       button_style: {

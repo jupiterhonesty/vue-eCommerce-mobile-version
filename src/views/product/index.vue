@@ -149,19 +149,11 @@
                             title="Add to cart"
                             @click="addToCart(getDetail, counter)"
                           >Add To Cart</button>
-                        </router-link>
-                         <router-link :to="{ path: '/page/account/checkout'}">
-                          <button
-                            class="btn btn-solid"
-                            title="Add to cart"
-                            @click="buyNow(getDetail, counter)"
-                          >buy now</button>
-                        </router-link>
-                        <!-- <a href="javascript:void(0)" @click="buyNow(getDetail, counter)" class="btn btn-solid">buy now</a> -->
+                        </router-link>                     
                       </div>
                       <div class="border-product">
                         <h6 class="product-title">product details</h6>
-                        <p>{{getDetail.full_description&&getDetail.full_description.substring(0,200)+"...."}}</p>
+                        <p>{{getDetail.full_description&&getDetail.full_description}}</p>
                       </div>
                       <div class="border-product">
                         <h6 class="product-title">share it</h6>
@@ -218,7 +210,7 @@
                       </b-tab>
                       <b-tab title="Details">
                         <b-card-text>
-                          {{getDetail.full_description}}
+                          {{getDetail.productDescription}}
                           <div class="single-product-tables">
                             <table>
                               <tbody>
@@ -430,11 +422,7 @@ export default {
       // product.qty = product.qty + qty || 1
       this.$store.dispatch('cart/addToCart', {product,qty})
     },
-    buyNow: function (product, qty) {
-      // product.qty = product.qty + qty || 1
-      this.$store.dispatch('cart/addToCart', {product,qty})
-      // this.$router.push('/page/account/checkout')
-    },
+
     // Item Count
     increment() {
       if (this.counter < this.getDetail.quantity) this.counter++
