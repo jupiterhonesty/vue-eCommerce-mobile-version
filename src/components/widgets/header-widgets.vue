@@ -94,7 +94,7 @@
               <div class="media">
                 <router-link :to="{ path: '/product/sidebar/'+getDetail(item.id).id}">
                    <img
-                    :src='require("@/assets/images/loader.gif")'            
+                    :src='require("@/assets/images/ajax-loader.gif")'            
                     class="mr-3"           
                   />
                   <img
@@ -177,8 +177,8 @@ export default {
     searchProduct() {
       this.$store.dispatch('products/searchProduct', this.searchString)
     },
-    removeCartItem: function (product) {
-      this.$store.dispatch('cart/removeCartItem', product)
+    removeCartItem: function (cart) {
+      this.$store.dispatch('cart/removeCartItem', cart)
     },
     updateCurrency: function (currency, currSymbol) {
       this.currencyChange = { curr: currency, symbol: currSymbol }

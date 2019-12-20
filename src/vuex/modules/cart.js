@@ -3,83 +3,99 @@ const state = {
   base_cart: null,
   cart: [],
   cart_count: 0,
-  payment_type: 1,
-  app_link:null,
-  order_id:null,
-  message:"",
-  ordered:false,
-  orderhistory:null
+  payment_type: 0,
+  app_link: null,
+  order_id: null,
+  message: "",
+  ordered: false,
+  orderhistory: null,
+  last_order: [],
 }
 // getters
 const getters = {
-  isDebit:state=>state.payment_type==1?true:false,
+  isDebit: state => state.payment_type == 1 ? true : false,
   cartItems: (state) => {
     return state.cart
   },
-  cartTotalAmount: (state) => {
-    // return state.cart.reduce((total, product) => {
-    //   return total + (product.priceInMinorUnits * product.qty)
-    // }, 0)
-    return state.base_cart&&state.base_cart.web_total_lines.find(e=>e.type==='ordertotal').value_show
-  },
-  subTotalAmount:state=>state.base_cart&&state.base_cart.web_total_lines.find(e=>e.type==='subtotal').value_show,
-  webTotalLines: (state)=>state.base_cart&&state.base_cart.web_total_lines,
-  taxAmount: state=>state.base_cart&&state.base_cart.web_total_lines.find(e=>e.type==='taxesfees').value_show,
-  deliverAmount: state=>state.base_cart&&state.base_cart.web_total_lines.find(e=>e.type==='delivery').value_show,  
-  webTotalDetails: state=>state.base_cart&&state.base_cart.web_total_details,
-  getOrderID: state=>state.order_id,
-  ordered:state=>state.ordered,
-  order_history:state=>state.orderhistory
+  webTotalLines: (state) => state.base_cart && state.base_cart.web_total_lines,
+  cartTotalAmount: (state) => state.base_cart && state.base_cart.web_total_lines.find(e => e.type === 'ordertotal').value_show,
+  subTotalAmount: state => state.base_cart && state.base_cart.web_total_lines.find(e => e.type === 'subtotal').value_show,
+  taxAmount: state => state.base_cart && state.base_cart.web_total_lines.find(e => e.type === 'taxesfees').value_show,
+  deliverAmount: state => state.base_cart && state.base_cart.web_total_lines.find(e => e.type === 'delivery').value_show,
+  webTotalDetails: state => state.base_cart && state.base_cart.web_total_details,
+  getOrderID: state => state.order_id,
+  ordered: state => state.ordered,
+  order_history: state => state.orderhistory,
+  paymenttype: state => state.payment_type
 
 }
 // mutations
 const mutations = {
-  setOrderhistory: (state,payload) =>{
+  setOrderhistory: (state, payload) => {
     state.orderhistory = payload.data
   },
-  paymentSelectAndOder: (state, payload) =>{
-    state.payment_type = payload.payment_type
-    api.updatePayment({to_payment_type: payload.payment_type},{'authorization': payload.token}).then(val=>{
-      api.shopingcartOrder({longitude:payload.appUser.longitude, latitude:payload.appUser.latitude},{'authorization': payload.token}).then(res=>{
-        var order_status = res.data;
-
-        if(order_status.status === "OK") {
-            state.message = "Your shopping cart order was placed!";
-            state.order_id = order_status.order_id;
-            state.app_link = "highland://?confirmation=1312";
-            state.ordered = true
-            // payload.onPaymentComplete(order_status)
-        } else {
-            state.message = "Problem with your shopping cart order! ";
-        }
-        // state.base_cart = null
-        state.cart = [];
-        state.cart_count = 0;
-      })
+  paymentSelect: (state, payload) => {
+    api.updatePayment({ to_payment_type: payload.payment_type }, { 'authorization': payload.token }).then(val => {
+      state.base_cart = val.data
+      state.cart_count = val.data.cart_count
+      state.cart = val.data.items
+      state.payment_type = val.data.payment_type
     })
+  },
+  order: (state, payload) => {
+    api.shopingcartOrder({
+      longitude: payload.appUser.longitude,
+      latitude: payload.appUser.latitude,
+      delivery_address_text: payload.delivery_address_text,
+      special_instructions_message: payload.special_instructions_message
+    },
+      { 'authorization': payload.token }
+    ).then(res => {
+      var order_status = res.data;
+
+      if (order_status.status === "OK") {
+        state.message = "Your shopping cart order was placed!";
+        state.order_id = order_status.order_id;
+        state.app_link = "highland://?confirmation=1312";
+        state.ordered = true
+      } else {
+        state.message = "Problem with your shopping cart order! ";
+      }
+      state.cart = [];
+      state.cart_count = 0;
+
+      api.orderHistory({ order_id: state.order_id }, { 'authorization': payload.token }).then(val => {
+        state.last_order = val.data
+      })
+
+    })
+
   },
   setShoppingCart: (state, payload) => {
 
     state.base_cart = payload.data
     state.cart_count = payload.data.cart_count
     state.cart = payload.data.items
+    state.payment_type = payload.data.payment_type
   },
   addToCart: (state, payload) => {
     const product = payload.product
     const cartItems = state.cart.find(item => +item.id === +payload.product.productId)
-    const qty = payload.qty ? payload.qty : 1    
-    if (cartItems) {
-      cartItems.qty = qty+cartItems.qty
-      api.updateShopingcart({productid:product.productId,qtyplusone:cartItems.qty},{'authorization': payload.token}).then(val=>{
+    const qty = payload.qty ? payload.qty : 1
+    if (cartItems || qty != 1) {
+      cartItems.qty = qty + cartItems.qty
+      api.updateShopingcart({ productid: product.productId, qtyplusone: cartItems.qty }, { 'authorization': payload.token }).then(val => {
         state.base_cart = val.data
         state.cart_count = val.data.cart_count
         state.cart = val.data.items
+        state.payment_type = val.data.payment_type
       })
     } else {
-      api.shopingcartAdd({product_id:product.productId},{'authorization': payload.token}).then(val=>{
+      api.shopingcartAdd({ product_id: product.productId }, { 'authorization': payload.token }).then(val => {
         state.base_cart = val.data
         state.cart_count = val.data.cart_count
         state.cart = val.data.items
+        state.payment_type = val.data.payment_type
       })
       // state.cart.push({
       //   ...product,
@@ -89,67 +105,60 @@ const mutations = {
     product.quantity--
   },
   updateCartQuantity: (state, payload) => {
-    // Calculate Product stock Counts
-    function calculateStockCounts(product, quantity) {
-      const qty = product.qty + quantity
-      const stock = product.quantity
-      if (stock < qty) {
-        return false
-      }
-      return true
+
+    var { cart, token } = payload
+
+    const qty = cart.qty + payload.qty
+    cart.qty = qty;
+    if (qty !== 0) {
+      api.updateShopingcart({ productid: cart.id, qtyplusone: qty }, { 'authorization': token }).then(val => {
+        state.base_cart = val.data
+        state.cart_count = val.data.cart_count
+        state.cart = val.data.items
+        state.payment_type = val.data.payment_type
+      })
+    } else {
+      // state.cart.push({
+      //   ...product,
+      //   quantity: qty
+      // })
     }
-    state.cart.find((items, index) => {
-      if (items.id === payload.product.productId) {
-        const qty = state.cart[index].qty + payload.qty
-        const stock = calculateStockCounts(state.cart[index], payload.qty)
-        if (qty !== 0 && stock) {
-          state.cart[index].qty = qty
-          api.updateShopingcart({productid:payload.product.productId,qtyplusone:qty},{'authorization': payload.token}).then(val=>{
-            state.base_cart = val.data
-            state.cart_count = val.data.cart_count
-            state.cart = val.data.items
-          })
-        } else {
-          // state.cart.push({
-          //   ...product,
-          //   quantity: qty
-          // })
-        }
-        return true
-      }
-    })
+    return true
   },
   removeCartItem: (state, payload) => {
-    // const index = state.cart.indexOf(payload)
-    // state.cart.splice(index, 1)
-    api.updateShopingcart({productid:payload.id,qtyplusone:0},{'authorization': payload.token}).then(val=>{
+    api.updateShopingcart({ productid: payload.id, qtyplusone: 0 }, { 'authorization': payload.token }).then(val => {
       state.base_cart = val.data
       state.cart_count = val.data.cart_count
       state.cart = val.data.items
+      state.payment_type = val.data.payment_type
     })
 
   }
 }
 // actions
 const actions = {
-  setOrderhistory: (context, payload) =>{
-    context.commit('setOrderhistory',payload)
+  setOrderhistory: (context, payload) => {
+    context.commit('setOrderhistory', payload)
   },
-  paymentSelectAndOder: (context, payload) =>{
-    
-    context.commit('paymentSelectAndOder',{...payload, token:context.rootGetters['auth/getAppUserToken'],appUser:context.rootState.auth.app_user})
+  order: (context, payload) => {
+
+    context.commit('order', { ...payload, token: context.rootGetters['auth/getAppUserToken'], appUser: context.rootState.auth.app_user })
+  },
+  paymentSelect: (context, payload) => {
+
+    context.commit('paymentSelect', { ...payload, token: context.rootGetters['auth/getAppUserToken'], appUser: context.rootState.auth.app_user })
   },
   setShoppingCart: (context, payload) => {
     context.commit('setShoppingCart', payload)
   },
   addToCart: (context, payload) => {
-    context.commit('addToCart', {...payload, token:context.rootGetters['auth/getAppUserToken']})
+    context.commit('addToCart', { ...payload, token: context.rootGetters['auth/getAppUserToken'] })
   },
   updateCartQuantity: (context, payload) => {
-    context.commit('updateCartQuantity', {...payload,token:context.rootGetters['auth/getAppUserToken']})
+    context.commit('updateCartQuantity', { ...payload, token: context.rootGetters['auth/getAppUserToken'] })
   },
   removeCartItem: (context, payload) => {
-    context.commit('removeCartItem', {...payload,token:context.rootGetters['auth/getAppUserToken']})
+    context.commit('removeCartItem', { ...payload, token: context.rootGetters['auth/getAppUserToken'] })
   }
 }
 export default {

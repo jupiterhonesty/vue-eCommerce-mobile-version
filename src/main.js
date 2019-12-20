@@ -49,13 +49,13 @@ const router = new VueRouter({
   mode: 'history'
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, from, next) => {
   
   var app_user_authenticated = getters['auth/appUserAuthed']
   var web_user_authenticated = getters['auth/webUserAuthed']
 
   if (to.matched.some(record => record.meta.requiresLogin) && ((!app_user_authenticated) && (!web_user_authenticated))) {
-    next("/page/account/login")
+    next("/page/appstore")
   } else {
     next()
   }

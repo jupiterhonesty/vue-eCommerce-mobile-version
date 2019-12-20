@@ -18,6 +18,18 @@ export const getProducts = headerparams => { return openapi_server.get(`/product
 export const getShopingcart = headerparams => { return openapi_server.get(`/shoppingcart.php?f=get&nocache=${new Date().getTime()}`, getConfig(headerparams)) }
 export const updateShopingcart = (params, headerparams) => { return openapi_server.get(`/shoppingcart.php?f=update&pid=${params.productid}&qty=${params.qtyplusone}&nocache=${new Date().getTime()}`, getConfig(headerparams)) }
 export const updatePayment = (params, headerparams) => { return openapi_server.get(`shoppingcart.php?f=setpayment&pmtid=${params.to_payment_type}&nocache=${new Date().getTime()}`, getConfig(headerparams)) }
-export const shopingcartOrder = (params, headerparams) => { return openapi_server.get(`shoppingcart.php?f=placeorder&long=${params.longitude}&lat=${params.latitude}&nocache=${new Date().getTime()}`, getConfig(headerparams)) }
+export const shopingcartOrder = (params, headerparams) => {
+    var myformData = new FormData();
+    myformData.set('f', 'placeorder');
+    myformData.set('long', params.longitude);
+    myformData.set('lat', params.latitude);
+    myformData.set('address', params.delivery_address_text);
+    myformData.set('instructions', params.special_instructions_message);
+     return openapi_server.post(
+         `shoppingcart.php`,
+         myformData,
+         getConfig({'Content-Type': 'multipart/form-data',...headerparams})
+     )
+}
 export const shopingcartAdd = (params, headerparams) => { return openapi_server.get(`shoppingcart.php?f=add&pid=${params.product_id}&nocache=${new Date().getTime()}`, getConfig(headerparams)) }
-export const orderHistory = (headerparams) => {return openapi_server.get(`/orderhistory.php?f=get&limit=3&nocache=${new Date().getTime()}`,getConfig(headerparams)) }
+export const orderHistory = (params, headerparams) => {return openapi_server.get(`/orderhistory.php?f=get&limit=${params.limit}&orderid=${params.order_id}&nocache=${new Date().getTime()}`,getConfig(headerparams)) }

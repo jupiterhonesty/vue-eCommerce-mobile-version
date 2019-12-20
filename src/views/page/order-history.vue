@@ -58,9 +58,8 @@
                           <tfoot>              
                             <tr v-for="tax_web_line in order.order_data.web_total_lines" v-bind:key="tax_web_line.text">
                               
-                                <td v-if="tax_web_line.type=='taxesfees'">taxes & fees <a href="javascript:void(0)" class="btn " v-b-modal="'modal-history-detail'+order.internal_order_id">
-                                  <i class="ti-info-alt"></i>
-                                  </a>
+                                <td v-if="tax_web_line.type=='taxesfees'"  v-b-modal="'modal-history-detail'+order.internal_order_id">
+                                    {{tax_web_line.text}}
                                 </td>
                                 <td v-else>{{tax_web_line.text}}</td>
                                 <td>
@@ -144,12 +143,12 @@ export default {
     ...mapGetters({
        order_history:'cart/order_history',
        getDetail: 'products/getProductByProductId',
-       getAuth: 'auth/getAppUserToken'
+       getAuth: 'auth/getAppUserToken',
     })
   },
   async mounted() {
      var  {dispatch} = this.$store
-     var orderhistory = await api.orderHistory({'authorization':this.getAuth})
+     var orderhistory = await api.orderHistory({limit:3,order_id:''},{'authorization':this.getAuth})
      dispatch('cart/setOrderhistory', orderhistory)
   }
 

@@ -67,23 +67,25 @@ export default {
 
       })
     } else {
+        this.$router.push({name:'appstore'});
        // for development   
-        var data = {
-          data:{
-            appat:"newnlp",
-            longitude:"23234243",
-            latitude:"32423423"           
-          }         
-        }
+        // var data = {
+        //   data:{
+        //     appat:"newnlp",
+        //     longitude:"23234243",
+        //     latitude:"32423423"           
+        //   }         
+        // }
         
-        if(!this.getLoaded) {
-          var productsDat = await api.getProducts({'authorization':data.data.appat})
-          var products = this.productsTypeChange(productsDat.data)
-          dispatch('products/setProducts',products)
-        }    
-        var shoppingCart = await api.getShopingcart({'authorization':data.data.appat})
-        dispatch('cart/setShoppingCart',shoppingCart)    
-        this.$router.push({name:'shop'})
+        // if(!this.getLoaded) {
+        //   var productsDat = await api.getProducts({'authorization':data.data.appat})
+        //   var products = this.productsTypeChange(productsDat.data)
+        //   dispatch('products/setProducts',products)
+        // }    
+        // var shoppingCart = await api.getShopingcart({'authorization':data.data.appat})
+        // dispatch('cart/setShoppingCart',shoppingCart)    
+        // this.$router.push({name:'shop'})
+
     }
   }
 };

@@ -67,45 +67,12 @@
                       </h4>
                       <h3 v-if="getDetail.sale">{{ discountedPrice(getDetail) * currency.curr | currency(currency.symbol) }}</h3>
                       <h3 v-else>{{ getDetail.priceInMinorUnits * currency.curr | currency(currency.symbol) }}</h3>
-                      <!-- <ul class="color-variant">
-                        <li
-                          v-bind:class="{ active: activeColor == variant}"
-                          v-for="(variant,variantIndex) in Color(getDetail.variants)"
-                          :key="variantIndex"
-                        >
-                          <a
-                            :class="[variant]"
-                            v-bind:style="{ 'background-color' : variant}"
-                            v-on:click="sizeVariant(getDetail.variants[variantIndex].image_id, variantIndex, variant)"
-                          ></a>
-                        </li>
-                      </ul> -->
-                      <div class="product-description border-product">
-                        <!-- <h6 class="product-title size-text">
-                          select size
-                          <span>
-                            <a href="javascript:void(0)" v-b-modal.modal-1>size chart</a>
-                          </span>
-                        </h6>
-                        <div class="size-box">
-                          <ul>
-                            <li
-                              class="product-title"
-                              v-bind:class="{ active: selectedSize == size}"
-                              v-for="(size,index) in size"
-                              :key="index"
-                            >
-                              <a
-                                href="javascript:void(0)"
-                                v-on:click="changeSizeVariant(size)"
-                              >{{size}}</a>
-                            </li>
-                          </ul>
-                        </div> -->
-                        <h5 class="avalibility" v-if="counter <= qty">
+              
+                      <div class="product-description border-product">         
+                        <h5 class="avalibility" v-if="counter <= getDetail.quantity">
                           <span>In Stock</span>
                         </h5>
-                        <h5 class="avalibility" v-if="counter > qty">
+                        <h5 class="avalibility" v-if="counter > getDetail.quantity">
                           <span>Out of Stock</span>
                         </h5>
                         <h6 class="product-title">quantity</h6>
@@ -356,7 +323,6 @@ export default {
       counter: 1,
       activeColor: '',
       selectedSize: '',
-      qty: '',
       size: [],
       swiperOption: {
         slidesPerView: 1,
@@ -419,7 +385,6 @@ export default {
     },
     // add to cart
     addToCart: function (product, qty) {
-      // product.qty = product.qty + qty || 1
       this.$store.dispatch('cart/addToCart', {product,qty})
     },
 

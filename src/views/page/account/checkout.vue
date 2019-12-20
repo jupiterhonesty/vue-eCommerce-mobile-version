@@ -13,7 +13,11 @@
                     <h3>Address</h3>
                   </div>
                   <div class="row check-out">
-                    <Map />                 
+                    <Map />   
+                    <div class="form-group col-md-6 col-sm-6 col-xs-12 mt-3">
+                      <div class="field-label">Special instructions</div>
+                      <input type="text" required v-model="special_instructions_message" name="field-name" placeholder="Enter Special instructions"/>
+                    </div>           
                   </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12">
@@ -29,44 +33,19 @@
                         <li v-for="(item,index) in cart" :key="index">
                           <div class="row">
                             <div class="col-8"> {{ item.qty }} X {{ item.desc }}  </div>
-                              <!-- <span>{{ (item.priceInMinorUnits * curr.curr) * item.qty | currency(curr.symbol) }}</span> -->
                             <div class="col-4">{{item.discounted_qty_price_show}}</div>
                           </div>
                         </li>
                       </ul>                
                       <table class="sub-total" align="center" v-if="cart.length">
                         <tfoot>
-                          <tr>
-                            <td>subtotal price</td>
-                            <td>
-                              <div>{{ cartSubTotal  }}</div>
-                              <!-- <h2>{{ cartTotal * curr.curr | currency(curr.symbol) }}</h2> -->
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>taxes & fees <a href="javascript:void(0)" class="btn " v-b-modal.modal-1>
-                                    <i class="ti-info-alt"></i>
-                                    </a>
-                            </td>
-                            <td>
-                              <div>{{ cartTax  }}</div>
-                              <!-- <h2>{{ cartTotal * curr.curr | currency(curr.symbol) }}</h2> -->
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>delivery</td>
-                            <td>
-                              <div>{{ cartDeliver  }}</div>
-                              <!-- <h2>{{ cartTotal * curr.curr | currency(curr.symbol) }}</h2> -->
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>order total</td>
-                            <td >
-                              <h2 >{{ cartTotal  }}</h2>
-                              <!-- <h2>{{ cartTotal * curr.curr | currency(curr.symbol) }}</h2> -->
-                            </td>
-                        </tr>        
+                           <tr v-for="tax in webTotalLines" :key="tax.text" >
+                              <td v-if="tax.type=='taxesfees'" v-b-modal.modal-check-detail>{{tax.text}}</td>
+                              <td v-else>{{tax.text}}</td>
+                              <td>
+                                <div>{{tax.value_show}}</div>
+                              </td>
+                            </tr>
                         </tfoot>               
                     </table>   
                     </div>
@@ -80,9 +59,9 @@
                                   type="radio"
                                   name="payment-group"
                                   id="payment-1"
-                                  checked="checked"
-                                  v-model="debit"
-                                  :value="true"
+                                  v-model.number="pt" 
+                                  value="1"
+                                  v-on:change="changePayment"                                                        
                                 />
                                 <label for="payment-1">
                                   Debit Card
@@ -94,7 +73,14 @@
                             </li>
                             <li>
                               <div class="radio-option paypal">
-                                <input type="radio" :value="false" v-model="debit" name="payment-group" id="payment-3" />
+                                <input 
+                                  type="radio" 
+                                  name="payment-group" 
+                                  id="payment-3" 
+                                  v-model.number="pt" 
+                                  value="2"                                  
+                                  v-on:change="changePayment"       
+                                />
                                 <label for="payment-3">
                                   Cash                         
                                 </label>
@@ -117,7 +103,7 @@
           </div>
         </div>
       </div>
-      <b-modal id="modal-1" size="md" centered hide-footer >
+      <b-modal id="modal-check-detail" size="md" centered hide-footer >
         <template v-slot:modal-title>Taxes & Fees Detail</template>
         <table align="center">
           <th>
@@ -159,19 +145,19 @@ export default {
   computed: {
     ...mapGetters({
       cart: 'cart/cartItems',
-      curr: 'products/changeCurrency',
-      web_total_lines: 'cart/webTotalLines',
-      cartSubTotal: 'cart/subTotalAmount',
-      cartTotal: 'cart/cartTotalAmount',
-      cartTax: 'cart/taxAmount',
-      cartDeliver:'cart/deliverAmount',
       webTotalDetails: 'cart/webTotalDetails',
-      isDebit:'cart/isDebit',
-      ordered:'cart/ordered'
+      webTotalLines:'cart/webTotalLines',
+      paymenttype:'cart/paymenttype'
     })
+  },
+  mounted() {
+    this.pt=this.paymenttype
   },
   data() {
     return {
+      delivery_address_text:'losansels,dei,sde',
+      special_instructions_message:'',
+      pt:0,
       user: {        
         address: '',
         city: '',
@@ -179,7 +165,6 @@ export default {
         zipcode: ''
       },
       isLogin: false,    
-      debit: true,
       environment: 'sandbox',
       button_style: {
         label: 'checkout',
@@ -191,19 +176,15 @@ export default {
     }
   },
   methods: {
-    order() {
-      // this.isLogin = localStorage.getItem('userlogin')
-      this.$store.dispatch('cart/paymentSelectAndOder',{payment_type:this.debit?1:2,onPaymentComplete:this.onPaymentComplete})  
-    },  
-    onPaymentComplete: function (data) {
-      // this.$store.dispatch('products/createOrder', {
-      //   product: this.cart,
-      //   userDetail: this.user,
-      //   token: data.orderID,
-      //   amt: this.cartTotal
-      // })
-      this.$router.push('/page/order-success')
+    changePayment(val){
+      this.$store.dispatch('cart/paymentSelect',{payment_type:+val.target.value})
+      this.pt=this.paymenttype
     },
+    order() {
+      this.$store.dispatch('cart/order',{
+        delivery_address_text:this.delivery_address_text,
+        special_instructions_message:this.special_instructions_message})      
+    },  
     onCancelled() {
     }
   }

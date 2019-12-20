@@ -9,6 +9,7 @@ import Cart from './views/page/account/cart'
 import Checkout from './views/page/account/checkout'
 import Ordersuccess from './views/page/order-success'
 import Orderhistory from './views/page/order-history'
+import Appstore from './views/page/appstore'
 let routes = [
 
   {
@@ -25,12 +26,12 @@ let routes = [
     path: '/home',
     name: 'home',
     component: Home,
-    meta: { requiresLogin: false },
+    meta: { requiresLogin: true },
   },
   {
     path: '/page/account/login',
     name: 'login',
-    component: Login
+    component: Login,
   },
   {
     path: '/page/account/register',
@@ -45,32 +46,43 @@ let routes = [
   {
     path: '/collection/shop',
     name: 'shop',
-    component: Shop
+    component: Shop,
+    meta: { requiresLogin: true },
   },
   {
     path:'/product/sidebar/:id',
     name: 'product',
-    component: Product
+    component: Product,
+    meta: { requiresLogin: true },
   },
   {
     path:'/page/account/cart',
     name: 'cart',
-    component: Cart
+    component: Cart,
+    meta: { requiresLogin: true },
   },
   {
     path:'/page/account/checkout',
     name: 'checkout',
-    component: Checkout
+    component: Checkout,
+    meta: { requiresLogin: true },
   },
   {
     path:'/page/order-success',
     name: 'ordersuccess',
-    component: Ordersuccess
+    component: Ordersuccess,
+    meta: { requiresLogin: true },
   },
   {
     path:'/page/order-history',
     name: 'orderhistory',
-    component: Orderhistory
+    component: Orderhistory,
+    meta: { requiresLogin: true },
+  },
+  {
+    path:'/page/appstore',
+    name: 'appstore',
+    component: Appstore
   }
 
  

@@ -23,7 +23,7 @@
                     <router-link :to="{ path: '/product/sidebar/'+getDetail(item.id).id}">
                    
                       <img
-                        :src='require("@/assets/images/loader.gif")'       
+                        :src='require("@/assets/images/ajax-loader.gif")'       
                           class="mr-3 rr-img"  
                       />
                       <img
@@ -75,7 +75,7 @@
                       </div>
                       <div class="col-xs-3">
                         <h2 class="td-color">
-                          <a href="#" class="icon">
+                          <a href="#" class="icon" @click="removeCartItem(item)">
                             <i class="ti-trash"></i>
                           </a>
                         </h2>
@@ -134,37 +134,29 @@
             </table>
             <table class="table cart-table table-responsive-md" v-if="cart.length">
               <tfoot>
-                <tr>
-                  <td>subtotal price :</td>
+                <tr v-for="tax in webTotalLines" :key="tax.text" >
+                  <td v-if="tax.type=='taxesfees'" v-b-modal.modal-cart-detail>{{tax.text}}</td>
+                  <td v-else>{{tax.text}}</td>
                   <td>
-                    <div>{{ cartSubTotal  }}</div>
-                    <!-- <h2>{{ cartTotal * curr.curr | currency(curr.symbol) }}</h2> -->
+                    <div>{{tax.value_show}}</div>
                   </td>
                 </tr>
-                <tr>
-                  <td>taxes & fees <a href="javascript:void(0)" class="btn " v-b-modal.modal-1>
+          
+                <!-- <tr>
+                  <td>taxes & fees <a href="javascript:void(0)" class="btn " v-b-modal.modal-cart-detail>
                            <i class="ti-info-alt"></i>
                           </a>:
                   </td>
                   <td>
                     <div>{{ cartTax  }}</div>
-                    <!-- <h2>{{ cartTotal * curr.curr | currency(curr.symbol) }}</h2> -->
                   </td>
-                </tr>
-                <tr>
-                  <td>delivery :</td>
-                  <td>
-                    <div>{{ cartDeliver  }}</div>
-                    <!-- <h2>{{ cartTotal * curr.curr | currency(curr.symbol) }}</h2> -->
-                  </td>
-                </tr>
+                </tr>              
                 <tr>
                   <td>order total :</td>
                   <td >
                     <h2 >{{ cartTotal  }}</h2>
-                    <!-- <h2>{{ cartTotal * curr.curr | currency(curr.symbol) }}</h2> -->
                   </td>
-              </tr>        
+                 </tr>         -->
               </tfoot>               
             </table>          
             <div class="col-sm-12 empty-cart-cls text-center" v-if="!cart.length">
@@ -188,7 +180,7 @@
           </div>
         </div>
       </div>
-      <b-modal id="modal-1" size="md" centered hide-footer >
+      <b-modal id="modal-cart-detail" size="md" centered hide-footer >
         <template v-slot:modal-title>Taxes & Fees Detail</template>
         <table align="center">
           <th>
@@ -231,33 +223,29 @@ export default {
   computed: {
     ...mapGetters({
       cart: 'cart/cartItems',
-      cartSubTotal: 'cart/subTotalAmount',
       cartTotal: 'cart/cartTotalAmount',
       cartTax: 'cart/taxAmount',
-      cartDeliver:'cart/deliverAmount',
-      curr: 'products/changeCurrency',
       getDetail: 'products/getProductByProductId',
-      webTotalDetails: 'cart/webTotalDetails'
+      webTotalDetails: 'cart/webTotalDetails',
+      webTotalLines:'cart/webTotalLines'
     })
   },
   methods: {
-    removeCartItem: function (product) {
-      this.$store.dispatch('cart/removeCartItem', product)
+    removeCartItem: function (cart) {
+      this.$store.dispatch('cart/removeCartItem', cart)
     },
-    increment(product, qty = 1) {
-      // if(this.counter>=product.quantity) return
-      this.counter++
+    increment(cart, qty = 1) {
+      if(cart.qty+qty>this.getDetail(cart.id).quantity) return
       this.$store.dispatch('cart/updateCartQuantity', {
-        product: product,
-        qty: qty
+        cart,
+        qty
       })
     },
-    decrement(product, qty = -1) {
-      if(this.counter<2) return
-      this.counter--
+    decrement(cart, qty = -1) {
+      if(cart.qty+qty<1) return
       this.$store.dispatch('cart/updateCartQuantity', {
-        product: product,
-        qty: qty
+        cart,
+        qty
       })
     }
   }
