@@ -6,16 +6,15 @@
           <div class="row">
               <div class="col-md-12 text-center pb-5">
                  <a href="https://apps.apple.com/us/app/plantsnap-plant-identification/id1451054346">
-                  <img 
-                  :src='require("@/assets/images/appstore.png")' alt="deliver">
+<!--                  <img :src='require("@/assets/images/appstore.png")' alt="deliver">-->
                  </a>
-              </div>      
-              
-          </div>        
+              </div>
+
+          </div>
           </div>
 
-      </section> 
-    
+      </section>
+
       <!-- Section ends -->
       <Footer />
   </div>
@@ -24,7 +23,7 @@
 import Footer from '@/components/footer'
 
 export default {
-  
+
   components: {
     Footer,
   }
