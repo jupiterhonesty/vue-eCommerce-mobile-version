@@ -17,6 +17,9 @@ const getters = {
   cartItems: (state) => {
     return state.cart
   },
+  webTotalTitle: state=> state.base_cart && state.base_cart.web_total_title,
+  webTotalLegalText:state=> state.base_cart && state.base_cart.web_total_legal_text,
+  webTotalLegalUrl:state=> state.base_cart && state.base_cart.web_total_legal_url,
   webTotalLines: (state) => state.base_cart && state.base_cart.web_total_lines,
   cartTotalAmount: (state) => state.base_cart && state.base_cart.web_total_lines.find(e => e.type === 'ordertotal').value_show,
   subTotalAmount: state => state.base_cart && state.base_cart.web_total_lines.find(e => e.type === 'subtotal').value_show,
@@ -108,7 +111,7 @@ const mutations = {
 
     var { cart, token } = payload
 
-    const qty = cart.qty + payload.qty
+    const qty =  parseInt(cart.qty, 10) + payload.qty
     cart.qty = qty;
     if (qty !== 0) {
       api.updateShopingcart({ productid: cart.id, qtyplusone: qty }, { 'authorization': token }).then(val => {

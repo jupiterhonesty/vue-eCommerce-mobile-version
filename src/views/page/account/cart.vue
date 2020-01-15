@@ -55,6 +55,7 @@
                               name="quantity"
                               class="form-control input-number"
                               v-model="item.qty"
+                              @change="editqty(item)"
                             />
                             <span class="input-group-prepend">
                               <button
@@ -104,6 +105,7 @@
                           name="quantity"
                           class="form-control input-number"
                           v-model="item.qty"
+                          @change="editqty(item)"
                         />
                         <span class="input-group-prepend">
                           <button
@@ -181,24 +183,32 @@
         </div>
       </div>
       <b-modal id="modal-cart-detail" size="md" centered hide-footer >
-        <template v-slot:modal-title>Taxes & Fees Detail</template>
+        <template v-slot:modal-title>{{webTotalTitle}}</template>
         <table align="center">
           <th>
             <tr>
-              <td><strong>Taxes and Fees Detail</strong></td>                  
+              <td><strong>{{webTotalTitle}}</strong></td>                  
             </tr>
           </th>
           <tbody>
-             <tr>
-              <td><strong>Detail</strong></td>   
+            <tr>
+              <td><strong>Description</strong></td> 
+              <td><strong>Detail</strong></td>                   
               <td><strong>Price</strong></td>               
             </tr>
-          <tr v-for="(fee,index) in webTotalDetails" :key="index">
-            <td>{{fee.text}}</td>
-            <td>{{fee.value_show}}</td>
-          </tr>
+            <tr v-for="(fee,index) in webTotalDetails" :key="index">
+              <td>{{fee.description}}</td>
+              <td>{{fee.text}}</td>
+              <td>{{fee.value_show}}</td>
+            </tr>
           </tbody>
+          <!-- <tfoot>
+            <tr>
+              <td><strong>{{webTotalLegalText}}</strong> : {{webTotalLegalUrl}}</td>
+            </tr>            
+          </tfoot> -->
         </table>
+        <strong>{{webTotalLegalText}}</strong> {{webTotalLegalUrl}}
       </b-modal>
     </section>
     <Footer />
@@ -227,7 +237,10 @@ export default {
       cartTax: 'cart/taxAmount',
       getDetail: 'products/getProductByProductId',
       webTotalDetails: 'cart/webTotalDetails',
-      webTotalLines:'cart/webTotalLines'
+      webTotalLines:'cart/webTotalLines',
+      webTotalTitle: 'cart/webTotalTitle',
+      webTotalLegalText:'cart/webTotalLegalText',
+      webTotalLegalUrl:'cart/webTotalLegalUrl'
     })
   },
   methods: {
@@ -235,7 +248,7 @@ export default {
       this.$store.dispatch('cart/removeCartItem', cart)
     },
     increment(cart, qty = 1) {
-      if(cart.qty+qty>this.getDetail(cart.id).quantity) return
+      // if(cart.qty+qty>this.getDetail(cart.id).quantity) return
       this.$store.dispatch('cart/updateCartQuantity', {
         cart,
         qty
@@ -244,6 +257,13 @@ export default {
     decrement(cart, qty = -1) {
       if(cart.qty+qty<1) return
       this.$store.dispatch('cart/updateCartQuantity', {
+        cart,
+        qty
+      })
+    },
+    editqty(cart, qty = 0) {
+       if(cart.qty+qty<1) return
+       this.$store.dispatch('cart/updateCartQuantity', {
         cart,
         qty
       })

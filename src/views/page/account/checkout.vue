@@ -104,23 +104,25 @@
         </div>
       </div>
       <b-modal id="modal-check-detail" size="md" centered hide-footer >
-        <template v-slot:modal-title>Taxes & Fees Detail</template>
+        <template v-slot:modal-title>{{webTotalTitle}}</template>
         <table align="center">
           <th>
             <tr>
-              <td><strong>Taxes and Fees Detail</strong></td>                  
+              <td><strong>{{webTotalTitle}}</strong></td>                  
             </tr>
           </th>
           <tbody>
-              <tr>
+             <tr>
               <td><strong>Detail</strong></td>   
+              <td><strong>Description</strong></td>   
               <td><strong>Price</strong></td>               
             </tr>
-          <tr v-for="(fee,index) in webTotalDetails" :key="index">
-            <td>{{fee.text}}</td>
-            <td>{{fee.value_show}}</td>
-          </tr>
-        </tbody>
+            <tr v-for="(fee,index) in webTotalDetails" :key="index">
+              <td>{{fee.text}}</td>
+              <td>{{fee.description}}</td>
+              <td>{{fee.value_show}}</td>
+            </tr>
+          </tbody>     
       </table>
     </b-modal>
     </section>
@@ -147,7 +149,8 @@ export default {
       cart: 'cart/cartItems',
       webTotalDetails: 'cart/webTotalDetails',
       webTotalLines:'cart/webTotalLines',
-      paymenttype:'cart/paymenttype'
+      paymenttype:'cart/paymenttype',
+      webTotalTitle: 'cart/webTotalTitle'
     })
   },
   mounted() {
@@ -178,7 +181,7 @@ export default {
   methods: {
     changePayment(val){
       this.$store.dispatch('cart/paymentSelect',{payment_type:+val.target.value})
-      this.pt=this.paymenttype
+      // this.pt=this.paymenttype
     },
     order() {
       this.$store.dispatch('cart/order',{

@@ -2,7 +2,7 @@
   <div>
     <div class="icon-nav">
       <ul>
-        <li class="onhover-div mobile-search">
+        <!-- <li class="onhover-div mobile-search">
           <div>
             <img
               alt
@@ -57,7 +57,7 @@
             </div>
           </div>
         </li>
-        <!-- <li class="onhover-div mobile-setting">
+        <li class="onhover-div mobile-setting">
           <div>
             <img alt :src='"@/assets/images/icon/layout4/setting.png"' class="img-fluid">
             <i class="ti-settings"></i>

@@ -106,23 +106,24 @@
 
 
                  <b-modal :id="`modal-success-detail${order.internal_order_id}`" size="md" centered hide-footer >
-                    <template v-slot:modal-title>Taxes & Fees Detail</template>
+                    <template v-slot:modal-title>{{webTotalTitle}}</template>
                     <table align="center">
                       <th>
                         <tr>
-                          <td><strong>Taxes and Fees Detail</strong></td>
+                          <td><strong>{{webTotalTitle}}</strong></td>
                         </tr>
                       </th>
                       <tbody>
                         <tr>
                           <td><strong>Detail</strong></td>
-                          <td><strong>Price</strong></td>
                           <td><strong>description</strong></td>
+                          <td><strong>Price</strong></td>
+                         
                         </tr>
                         <tr v-for="tax_web_detail in order.order_data.web_total_details" v-bind:key="tax_web_detail.text">
                           <td>{{tax_web_detail.text}}</td>
-                          <td>{{tax_web_detail.value_show}}</td>
                           <td>{{tax_web_detail.description}}</td>
+                          <td>{{tax_web_detail.value_show}}</td>                          
                         </tr>
                       </tbody>
                     </table>
@@ -152,12 +153,12 @@
                     </div>
                     <div class="col-sm-12 payment-mode">
                       <h4>payment method</h4>
-                      <p>Pay on Delivery (Cash/Card). Cash on delivery (COD) available. Card/Net banking acceptance subject to device availability.</p>
+                      <p>Pay on Delivery {{order.order_data.payment_type==1?"Debit":"Cash"}}.</p>
                     </div>
                     <div class="col-md-12">
                       <div class="delivery-sec">
-                        <h3>expected date of delivery</h3>
-                        <h2>{{order.delivery_date}}</h2>
+                        <h3>Expected delivery time</h3>
+                        <h2>{{order.order_data.web_delivery_estimate}}</h2>
                       </div>
                     </div>
                   </div>
@@ -194,8 +195,7 @@ export default {
     ...mapGetters({
       order: 'cart/ordered',
       getDetail: 'products/getProductByProductId',
-
-
+      webTotalTitle: 'cart/webTotalTitle'
     })
   },
 

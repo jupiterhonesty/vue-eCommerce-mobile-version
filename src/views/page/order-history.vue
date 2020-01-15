@@ -76,23 +76,24 @@
 
 
                  <b-modal :id="`modal-history-detail${order.internal_order_id}`" size="md" centered hide-footer >
-                    <template v-slot:modal-title>Taxes & Fees Detail</template>
+                    <template v-slot:modal-title>{{webTotalTitle}}</template>
                     <table align="center">
                       <th>
                         <tr>
-                          <td><strong>Taxes and Fees Detail</strong></td>                  
+                          <td><strong>{{webTotalTitle}}</strong></td>                  
                         </tr>
                       </th>
                       <tbody>
                         <tr>
                           <td><strong>Detail</strong></td>   
-                          <td><strong>Price</strong></td>     
                           <td><strong>description</strong></td>     
+                          <td><strong>Price</strong></td>    
                         </tr>
                         <tr v-for="tax_web_detail in order.order_data.web_total_details" v-bind:key="tax_web_detail.text">
                           <td>{{tax_web_detail.text}}</td>
-                          <td>{{tax_web_detail.value_show}}</td>
                           <td>{{tax_web_detail.description}}</td>
+                          <td>{{tax_web_detail.value_show}}</td>
+                          
                         </tr>
                       </tbody>
                     </table>
@@ -144,6 +145,7 @@ export default {
        order_history:'cart/order_history',
        getDetail: 'products/getProductByProductId',
        getAuth: 'auth/getAppUserToken',
+       webTotalTitle: 'cart/webTotalTitle'
     })
   },
   async mounted() {
