@@ -30,13 +30,17 @@ let routes = [
   },
   {
     path: '/page/account/login',
-    name: 'login',
-    component: Login,
+    // name: 'login',
+    // component: Login,
+    name: 'appstore',
+    component: Appstore
   },
   {
     path: '/page/account/register',
-    name: 'register',
-    component: Register
+    // name: 'register',
+    // component: Register
+    name: 'appstore',
+    component: Appstore
   },
   {
     path: '/page/account/register_confirm',
@@ -85,7 +89,7 @@ let routes = [
     component: Appstore
   }
 
- 
+
 ];
 
 export default routes;

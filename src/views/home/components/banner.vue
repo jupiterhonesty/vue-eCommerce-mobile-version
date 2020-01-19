@@ -25,9 +25,9 @@ export default {
   data() {
     return {
       imagepath: require('@/assets/images/parallax/15.jpg'),
-      title: '2019',
-      subtitle: 'food market',
-      text: 'special offer'
+      title: '2020',
+      subtitle: 'The Planet Delivery',
+      text: 'free local delivery with 20 minutes'
     }
   }
 }

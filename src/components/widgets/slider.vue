@@ -48,14 +48,14 @@ export default {
       items: [
         {
           imagepath: require('@/assets/images/home-banner/38.jpg'),
-          title: 'save upto 10%',
-          subtitle: 'fresh vegetables',
+          title: 'Save upto 15% on',
+          subtitle: 'KIVA PRODUCTS',
           alignclass: 'p-left'
         },
         {
           imagepath: require('@/assets/images/home-banner/39.jpg'),
           title: 'special offer',
-          subtitle: 'fresh fruits',
+          subtitle: 'BUY 3 GET ONE 50% OFF',
           alignclass: 'p-left'
         }
       ]

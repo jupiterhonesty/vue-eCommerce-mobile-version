@@ -21,8 +21,8 @@
                           :key="index"
                         >
                           <img
-                              :src='require("@/assets/images/ajax-loader.gif")'            
-                              class="img-fluid bg-img w-100"           
+                              :src='require("@/assets/images/ajax-loader.gif")'
+                              class="img-fluid bg-img w-100"
                             />
                           <img
                             :src="getDetail.productPictureURL||require('@/assets/images/pro/1.jpg')"
@@ -43,8 +43,8 @@
                               :key="index"
                             >
                                <img
-                                    :src='require("@/assets/images/ajax-loader.gif")'            
-                                    class="img-fluid bg-img w-100"           
+                                    :src='require("@/assets/images/ajax-loader.gif")'
+                                    class="img-fluid bg-img w-100"
                                   />
                                 <img
                                   :src="getDetail.productPictureURL||require('@/assets/images/pro/1.jpg')"
@@ -67,14 +67,14 @@
                       </h4>
                       <h3 v-if="getDetail.sale">{{ discountedPrice(getDetail) * currency.curr | currency(currency.symbol) }}</h3>
                       <h3 v-else>{{ getDetail.priceInMinorUnits * currency.curr | currency(currency.symbol) }}</h3>
-              
-                      <div class="product-description border-product">         
-                        <h5 class="avalibility" v-if="counter <= getDetail.quantity">
-                          <span>In Stock</span>
-                        </h5>
-                        <h5 class="avalibility" v-if="counter > getDetail.quantity">
-                          <span>Out of Stock</span>
-                        </h5>
+
+                      <div class="product-description border-product">
+<!--                        <h5 class="avalibility" v-if="counter <= getDetail.quantity">-->
+<!--                          <span>In Stock</span>-->
+<!--                        </h5>-->
+<!--                        <h5 class="avalibility" v-if="counter > getDetail.quantity">-->
+<!--                          <span>Out of Stock</span>-->
+<!--                        </h5>-->
                         <h6 class="product-title">quantity</h6>
                         <div class="qty-box">
                           <div class="input-group">
@@ -116,53 +116,11 @@
                             title="Add to cart"
                             @click="addToCart(getDetail, counter)"
                           >Add To Cart</button>
-                        </router-link>                     
+                        </router-link>
                       </div>
                       <div class="border-product">
                         <h6 class="product-title">product details</h6>
                         <p>{{getDetail.full_description&&getDetail.full_description}}</p>
-                      </div>
-                      <div class="border-product">
-                        <h6 class="product-title">share it</h6>
-                        <div class="product-icon">
-                          <ul class="product-social">
-                            <li>
-                              <a href="javascript:void(0)">
-                                <i class="fa fa-facebook"></i>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="javascript:void(0)">
-                                <i class="fa fa-google-plus"></i>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="javascript:void(0)">
-                                <i class="fa fa-twitter"></i>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="javascript:void(0)">
-                                <i class="fa fa-instagram"></i>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="javascript:void(0)">
-                                <i class="fa fa-rss"></i>
-                              </a>
-                            </li>
-                          </ul>
-                          <form class="d-inline-block">
-                            <button class="wishlist-btn" @click="addToWishlist(product)">
-                              <i class="fa fa-heart"></i>
-                              <span class="title-font">Add To WishList</span>
-                            </button>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="border-product">
-                        <h6 class="product-title">Time Reminder</h6>
-                        <Timer date="December 20, 2020" />
                       </div>
                     </div>
                   </div>
@@ -179,114 +137,119 @@
                         <b-card-text>
                           {{getDetail.productDescription}}
                           <div class="single-product-tables">
-                            <table>
-                              <tbody>
-                                <tr>
-                                  <td>Febric</td>
-                                  <td>Chiffon</td>
-                                </tr>
-                                <tr>
-                                  <td>Color</td>
-                                  <td>Red</td>
-                                </tr>
-                                <tr>
-                                  <td>Material</td>
-                                  <td>Crepe printed</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <table>
-                              <tbody>
-                                <tr>
-                                  <td>Length</td>
-                                  <td>50 Inches</td>
-                                </tr>
-                                <tr>
-                                  <td>Size</td>
-                                  <td>S, M, L .XXL</td>
-                                </tr>
-                              </tbody>
-                            </table>
+
+<!--                            <table>-->
+<!--                              <tbody>-->
+<!--                                <tr>-->
+<!--                                  <td>Febric</td>-->
+<!--                                  <td>Chiffon</td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                  <td>Color</td>-->
+<!--                                  <td>Red</td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                  <td>Material</td>-->
+<!--                                  <td>Crepe printed</td>-->
+<!--                                </tr>-->
+<!--                              </tbody>-->
+<!--                            </table>-->
+
+<!--                            <table>-->
+<!--                              <tbody>-->
+<!--                                <tr>-->
+<!--                                  <td>Length</td>-->
+<!--                                  <td>50 Inches</td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                  <td>Size</td>-->
+<!--                                  <td>S, M, L .XXL</td>-->
+<!--                                </tr>-->
+<!--                              </tbody>-->
+<!--                            </table>-->
                           </div>
                         </b-card-text>
                       </b-tab>
+
                       <b-tab title="Video">
-                        <b-card-text>
-                          <div class="mt-3 text-center">
-                            <iframe
-                              width="560"
-                              height="315"
-                              src="https://www.youtube.com/embed/BUWzX78Ye_8"
-                              allow="autoplay; encrypted-media"
-                              allowfullscreen
-                            ></iframe>
-                          </div>
-                        </b-card-text>
+<!--                        <b-card-text>-->
+<!--                          <div class="mt-3 text-center">-->
+<!--                            <iframe-->
+<!--                              width="560"-->
+<!--                              height="315"-->
+<!--                              src="https://www.youtube.com/embed/BUWzX78Ye_8"-->
+<!--                              allow="autoplay; encrypted-media"-->
+<!--                              allowfullscreen-->
+<!--                            ></iframe>-->
+<!--                          </div>-->
+<!--                        </b-card-text>-->
                       </b-tab>
-                      <b-tab title="Write Review">
-                        <b-card-text>
-                          <form class="theme-form">
-                            <div class="form-row">
-                              <div class="col-md-12">
-                                <div class="media">
-                                  <label>Rating</label>
-                                  <div class="media-body ml-3">
-                                    <div class="rating three-star">
-                                      <i class="fa fa-star"></i>
-                                      <i class="fa fa-star"></i>
-                                      <i class="fa fa-star"></i>
-                                      <i class="fa fa-star"></i>
-                                      <i class="fa fa-star"></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <label for="name">Name</label>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  id="name"
-                                  placeholder="Enter Your name"
-                                  required
-                                />
-                              </div>
-                              <div class="col-md-6">
-                                <label for="email">Email</label>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  id="email"
-                                  placeholder="Email"
-                                  required
-                                />
-                              </div>
-                              <div class="col-md-12">
-                                <label for="review">Review Title</label>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  id="review"
-                                  placeholder="Enter your Review Subjects"
-                                  required
-                                />
-                              </div>
-                              <div class="col-md-12">
-                                <label for="review">Review Title</label>
-                                <textarea
-                                  class="form-control"
-                                  placeholder="Wrire Your Testimonial Here"
-                                  id="exampleFormControlTextarea1"
-                                  rows="6"
-                                ></textarea>
-                              </div>
-                              <div class="col-md-12">
-                                <button class="btn btn-solid" type="submit">Submit YOur Review</button>
-                              </div>
-                            </div>
-                          </form>
-                        </b-card-text>
-                      </b-tab>
+
+<!--                      <b-tab title="Write Review">-->
+<!--                        <b-card-text>-->
+<!--                          <form class="theme-form">-->
+<!--                            <div class="form-row">-->
+<!--                              <div class="col-md-12">-->
+<!--                                <div class="media">-->
+<!--                                  <label>Rating</label>-->
+<!--                                  <div class="media-body ml-3">-->
+<!--                                    <div class="rating three-star">-->
+<!--                                      <i class="fa fa-star"></i>-->
+<!--                                      <i class="fa fa-star"></i>-->
+<!--                                      <i class="fa fa-star"></i>-->
+<!--                                      <i class="fa fa-star"></i>-->
+<!--                                      <i class="fa fa-star"></i>-->
+<!--                                    </div>-->
+<!--                                  </div>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="col-md-6">-->
+<!--                                <label for="name">Name</label>-->
+<!--                                <input-->
+<!--                                  type="text"-->
+<!--                                  class="form-control"-->
+<!--                                  id="name"-->
+<!--                                  placeholder="Enter Your name"-->
+<!--                                  required-->
+<!--                                />-->
+<!--                              </div>-->
+<!--                              <div class="col-md-6">-->
+<!--                                <label for="email">Email</label>-->
+<!--                                <input-->
+<!--                                  type="text"-->
+<!--                                  class="form-control"-->
+<!--                                  id="email"-->
+<!--                                  placeholder="Email"-->
+<!--                                  required-->
+<!--                                />-->
+<!--                              </div>-->
+<!--                              <div class="col-md-12">-->
+<!--                                <label for="review">Review Title</label>-->
+<!--                                <input-->
+<!--                                  type="text"-->
+<!--                                  class="form-control"-->
+<!--                                  id="review"-->
+<!--                                  placeholder="Enter your Review Subjects"-->
+<!--                                  required-->
+<!--                                />-->
+<!--                              </div>-->
+<!--                              <div class="col-md-12">-->
+<!--                                <label for="review">Review Title</label>-->
+<!--                                <textarea-->
+<!--                                  class="form-control"-->
+<!--                                  placeholder="Wrire Your Testimonial Here"-->
+<!--                                  id="exampleFormControlTextarea1"-->
+<!--                                  rows="6"-->
+<!--                                ></textarea>-->
+<!--                              </div>-->
+<!--                              <div class="col-md-12">-->
+<!--                                <button class="btn btn-solid" type="submit">Submit YOur Review</button>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </form>-->
+<!--                        </b-card-text>-->
+<!--                      </b-tab>-->
+
                     </b-tabs>
                   </div>
                 </div>
@@ -295,10 +258,12 @@
           </div>
         </div>
       </div>
+
       <b-modal id="modal-1" size="md" centered hide-footer>
         <template v-slot:modal-title>{{getDetail.productName}}</template>
         <img src="@/assets/images/size-chart.jpg" alt="size-chart" class="img-fluid" />
       </b-modal>
+
     </section>
     <Footer />
   </div>
@@ -308,14 +273,14 @@ import { mapState, mapGetters } from 'vuex'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import Breadcrumbs from '@/components/widgets/breadcrumbs'
-import Timer from '@/components/widgets/timer'
-// import productSidebar from '@/components/widgets/product-sidebar'
+// import Timer from '@/components/widgets/timer'
+
 export default {
   components: {
     Header,
     Footer,
     Breadcrumbs,
-    Timer,
+    // Timer,
     // productSidebar
   },
   data() {

@@ -5,8 +5,8 @@
      <section class="p-0" v-if="!order_history">
       <div class="container">
         <img
-          :src='require("@/assets/images/ajax-loader.gif")'            
-          class="img-fluid bg-img w-100"           
+          :src='require("@/assets/images/ajax-loader.gif")'
+          class="img-fluid bg-img w-100"
         />
       </div>
     </section>
@@ -20,56 +20,49 @@
                     <div class="order-box">
                       <div class="title-box pb-0">
                         <div class="text-center">
-                          ID : {{order.internal_order_id}}<br>
-                          customer orderID : {{order.order_data.ordernumber}}<br>
-                          <h6>{{order.order_date}} ~ {{order.delivery_date}} </h6><br>
+                          Order# {{order.order_data.ordernumber}}<br>
+                          <h6>{{order.order_date}}</h6><br>
                         </div>
                       </div>
 
-                      <ul class="qty"  v-if="order.order_data.items.length">  
+                      <ul class="qty"  v-if="order.order_data.items.length">
                         <li v-for="(item,index) in order.order_data.items" :key="index">
-                          <div class="row">
-                            <!-- <div class="col-3">
-                               <router-link :to="{ path: '/product/sidebar/'+getDetail(item.id).id}">
-                              
+
+                            <div class="row">
+                            <div class="col-3">
                                 <img
-                                  :src='require("@/assets/images/loader.gif")'       
-                                    class="mr-3 rrr-img w-100"  
-                                />
-                                <img
-                                  :src='getDetail(item.id).productPictureURL||require("@/assets/images/pro/1.jpg")'                   
+                                  :src='item.image_url'
                                   class="mr-3 rrr-img w-100"
-                                  :alt="item.desc"                   
-                                />        
-                              </router-link>
-                            </div> -->
+                                  :alt="item.desc"
+                                />
+                            </div>
+
                             <div class="col-12 pl-5">
                               <div class="row">
                                 <div class="col-12">{{ item.desc }} </div>
                                 <div class="col-12">coupon-code: {{item.discount_code}}</div>
-                                <div class="col-12">{{item.qty}} X {{ item.single_price_show }} {{item.discount_qty_amount_show}} = {{item.discounted_qty_price_show}}</div>                    
+                                <div class="col-12">{{item.qty}} X {{ item.single_price_show }} {{item.discount_qty_amount_show}} = {{item.discounted_qty_price_show}}</div>
                               </div>
                             </div>
+
                           </div>
+
                         </li>
-                      </ul>  
+                      </ul>
 
                       <table class="sub-total" align="center" v-if="order.order_data.items.length">
-                          <tfoot>              
+                          <tfoot>
                             <tr v-for="tax_web_line in order.order_data.web_total_lines" v-bind:key="tax_web_line.text">
-                              
                                 <td v-if="tax_web_line.type=='taxesfees'"  v-b-modal="'modal-history-detail'+order.internal_order_id">
                                     {{tax_web_line.text}}
                                 </td>
                                 <td v-else>{{tax_web_line.text}}</td>
                                 <td>
-                                  <div>{{ tax_web_line.value_show  }}</div>
-                                </td>                   
-                            </tr>   
-                                    
-                        </tfoot>           
-                                    
-                      </table>     
+                                  <div>{{tax_web_line.value_show}}</div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                      </table>
 
                     </div>
                   </div>
@@ -80,20 +73,14 @@
                     <table align="center">
                       <th>
                         <tr>
-                          <td><strong>{{webTotalTitle}}</strong></td>                  
+                          <td><strong>{{webTotalTitle}}</strong></td>
                         </tr>
                       </th>
                       <tbody>
-                        <tr>
-                          <td><strong>Detail</strong></td>   
-                          <td><strong>description</strong></td>     
-                          <td><strong>Price</strong></td>    
-                        </tr>
                         <tr v-for="tax_web_detail in order.order_data.web_total_details" v-bind:key="tax_web_detail.text">
                           <td>{{tax_web_detail.text}}</td>
                           <td>{{tax_web_detail.description}}</td>
                           <td>{{tax_web_detail.value_show}}</td>
-                          
                         </tr>
                       </tbody>
                     </table>
@@ -103,22 +90,22 @@
                     <h3 class="mt-3">
                       <strong>Your history is Empty</strong>
                     </h3>
-                    <h4 class="mb-3">Add something to make me happy :)</h4>
+                    <h4 class="mb-3">Add something that makes you happy!</h4>
                     <div class="col-12">
                       <router-link :to="{ path: '/collection/shop'}" class="btn btn-solid">go shopping</router-link>
                     </div>
                   </div>
 
                 </div>
-              </div>   
+              </div>
           </div>
         </div>
       </div>
     </section>
-      
-        
-     
-   
+
+
+
+
     <Footer />
   </div>
 </template>

@@ -2,11 +2,11 @@
   <div>
     <Header />
     <Slider />
-    <Services />
+<!--    <Services />-->
     <!-- <ProductSlider :products="products" @openQuickview="showQuickview" @openCompare="showCoampre" @openCart="showCart" /> -->
     <Banner />
     <SpecialProducts :products="products" :category="category" @openQuickview="showQuickview" @openCompare="showCoampre" @openCart="showCart" />
-    <Blog />
+    <!--    <Blog />-->
     <Footer />
     <quickviewModel :openModal="showquickviewmodel" :productData="quickviewproduct" />
     <compareModel :openCompare="showcomparemodal" :productData="comapreproduct" @closeCompare="closeCompareModal" />
@@ -34,10 +34,10 @@ export default {
   components: {
     Header,
     Slider,
-    Services,
+    // Services,
     Banner,
     SpecialProducts,
-    Blog,
+    // Blog,
     Footer,
     quickviewModel,
     compareModel,
@@ -58,8 +58,8 @@ export default {
   },
   computed: {
     ...mapState({
-      productslist: state => state.products.productslist,      
-    })    
+      productslist: state => state.products.productslist,
+    })
   },
   mounted() {
     this.productsArray()

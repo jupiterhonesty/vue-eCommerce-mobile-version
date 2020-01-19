@@ -11,24 +11,24 @@
       <!-- Sample menu definition -->
        <ul id="sub-menu-auth" class="sidebar-menu">
          <li>
-            <router-link :to="{ path: '/home' }">Home</router-link>           
+            <router-link :to="{ path: '/home' }">Home</router-link>
            </li>
            <li>
-            <router-link :to="{ path: '/collection/shop' }">Shop</router-link>           
+            <router-link :to="{ path: '/collection/shop' }">Shop</router-link>
            </li>
            <li>
-             <router-link :to="{ path: '/page/order-history' }">Order History</router-link>           
+             <router-link :to="{ path: '/page/order-history' }">Order History</router-link>
 
            </li>
           <li>
-           <router-link v-if="!signedIn" :to="{ path: '/page/account/login' }">Login/Signup</router-link>
-            <a v-if="signedIn" @click="signOut" href="#">Logout</a>     
+<!--           <router-link v-if="!signedIn" :to="{ path: '/page/account/login' }">Login/Signup</router-link>-->
+            <a v-if="signedIn" @click="signOut" href="#">Sign Out</a>
            </li>
-           
+
        </ul>
-    </nav>    
+    </nav>
   </div>
-  
+
 </template>
 
 <script>
@@ -49,7 +49,7 @@ export default {
   methods: {
     signOut() {
       signOut()
-    },  
+    },
     closeLeftBar(val) {
       val = false
       this.$emit('closeVal', val)
