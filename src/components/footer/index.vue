@@ -98,7 +98,7 @@
                 <div class="footer-contant">
                   <ul class="contact-list">
                     <li>
-                      <i class="fa fa-map-marker"></i>The Planet Delivery, Woodland Hills, CA
+                      <i class="fa fa-map-marker"></i>The Plant Delivery, Woodland Hills, CA
                     </li>
                     <li>
                       <i class="fa fa-phone"></i>Phone: 818-555-5555
@@ -120,7 +120,7 @@
             <div class="col-xl-6 col-md-6 col-sm-12">
               <div class="footer-end">
                 <p>
-                  <i class="fa fa-copyright" aria-hidden="true"></i> 2019 - 2020 The Planet Delivery
+                  <i class="fa fa-copyright" aria-hidden="true"></i> 2019 - 2020 The Plant Delivery
                 </p>
               </div>
             </div>

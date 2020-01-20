@@ -50,8 +50,7 @@
                     <div class="order-box">
                       <div class="title-box pb-0">
                         <div class="text-center">
-                          ID : {{order.internal_order_id}}<br>
-                          customer orderID : {{order.order_data.ordernumber}}<br>
+                          Order# {{order.order_data.ordernumber}}<br>
                           <h6>{{order.order_date}}</h6><br>
                         </div>
                       </div>
@@ -59,20 +58,13 @@
                       <ul class="qty"  v-if="order.order_data.items.length">
                         <li v-for="(item,index) in order.order_data.items" :key="index">
                           <div class="row">
-                            <!-- <div class="col-3">
-                               <router-link :to="{ path: '/product/sidebar/'+getDetail(item.id).id}">
-
+                            <div class="col-3">
                                 <img
-                                  :src='require("@/assets/images/loader.gif")'
-                                    class="mr-3 rrr-img w-100"
-                                />
-                                <img
-                                  :src='getDetail(item.id).productPictureURL||require("@/assets/images/pro/1.jpg")'
+                                  :src='item.image_url'
                                   class="mr-3 rrr-img w-100"
                                   :alt="item.desc"
                                 />
-                              </router-link>
-                            </div> -->
+                            </div>
                             <div class="col-12 pl-5">
                               <div class="row">
                                 <div class="col-12">{{ item.desc }} </div>
@@ -118,12 +110,12 @@
                           <td><strong>Detail</strong></td>
                           <td><strong>description</strong></td>
                           <td><strong>Price</strong></td>
-                         
+
                         </tr>
                         <tr v-for="tax_web_detail in order.order_data.web_total_details" v-bind:key="tax_web_detail.text">
                           <td>{{tax_web_detail.text}}</td>
                           <td>{{tax_web_detail.description}}</td>
-                          <td>{{tax_web_detail.value_show}}</td>                          
+                          <td>{{tax_web_detail.value_show}}</td>
                         </tr>
                       </tbody>
                     </table>
