@@ -10,6 +10,7 @@ const state = {
   ordered: false,
   orderhistory: null,
   last_order: [],
+  delivery_address_text:""
 }
 // getters
 const getters = {
@@ -45,11 +46,14 @@ const mutations = {
       state.payment_type = val.data.payment_type
     })
   },
+  setDeliveryAddressText: (state, payload) => {
+    state.delivery_address_text = payload.delivery_address_text;
+  },
   order: (state, payload) => {
     api.shopingcartOrder({
       longitude: payload.appUser.longitude,
       latitude: payload.appUser.latitude,
-      delivery_address_text: payload.delivery_address_text,
+      delivery_address_text: state.delivery_address_text,
       special_instructions_message: payload.special_instructions_message
     },
       { 'authorization': payload.token }
@@ -146,6 +150,9 @@ const actions = {
   order: (context, payload) => {
 
     context.commit('order', { ...payload, token: context.rootGetters['auth/getAppUserToken'], appUser: context.rootState.auth.app_user })
+  },
+  setDeliveryAddressText: (context, payload) => {
+    context.commit('setDeliveryAddressText', payload);
   },
   paymentSelect: (context, payload) => {
 

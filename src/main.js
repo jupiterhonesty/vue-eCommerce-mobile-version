@@ -33,12 +33,12 @@ Vue.use(VueLazyLoad)
 Vue.use(BootStrapVue)
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyDN8W7bJMK4jqFzWFBeeBFwnrm8uTkrm7k",
+    key: "AIzaSyCFgMkvCLJ0iVCd9F3JW2Fda6-O3M2Umd8",
     libraries: "places"
   }
 });
 
-const { dispatch, getters } = store  
+const { dispatch, getters } = store
 
 dispatch('auth/findUser');
 
@@ -50,7 +50,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  
+
   var app_user_authenticated = getters['auth/appUserAuthed']
   var web_user_authenticated = getters['auth/webUserAuthed']
 
@@ -64,7 +64,7 @@ router.beforeEach((to, from, next) => {
 
 
 AmplifyEventBus.$on('authState', async (state) => {
-  
+
   const pushPathes = {
     signedOut: () => {
       dispatch('logout')

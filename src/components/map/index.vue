@@ -1,6 +1,6 @@
 <template>
   <div class="w-100">
-    <gmap-map :center="center" :zoom="12" class="gmap">
+    <gmap-map :center="center" :zoom="15" class="gmap">
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"
@@ -8,13 +8,12 @@
         @click="center=m.position"
       ></gmap-marker>
     </gmap-map>
-    <br>
+    <br />
     <div class="form-group col-md-6 col-sm-6 col-xs-12">
       <div class="field-label">Your location</div>
       <gmap-autocomplete @place_changed="setPlace" type="text"></gmap-autocomplete>
-        <!-- <button @click="addMarker">Add</button> -->
+      <!-- <button @click="addMarker">Add</button> -->
     </div>
-       
   </div>
 </template>
 
@@ -40,6 +39,11 @@ export default {
     // receives a place object via the autocomplete component
     setPlace(place) {
       this.currentPlace = place;
+      var delivery_address_json_text = JSON.stringify(place.address_components);
+      this.$store.dispatch("cart/setDeliveryAddressText", {
+        delivery_address_text: delivery_address_json_text
+      });
+      this.addMarker();
     },
     addMarker() {
       if (this.currentPlace) {
@@ -59,6 +63,7 @@ export default {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        this.markers.push({ position: this.center });
       });
     }
   }
