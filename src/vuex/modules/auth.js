@@ -19,15 +19,22 @@ const state = {
 
 const getters = {
     signedIn: (state) => {
-        return state.web_user.authenticated||state.app_user.authenticated;
+        return state.web_user.authenticated || state.app_user.authenticated;
     },
     webUserAuthed: state => {
         return state.web_user.authenticated;
     },
     appUserAuthed: state => {
         return state.app_user.authenticated;
-    },    
-    getAppUserToken: state => state.app_user.access_token
+    },
+    getAppUserToken: state => state.app_user.access_token,
+    getCoordinates: state => {
+        return {
+            lat: +state.app_user.latitude,
+            lng: +state.app_user.longitude
+        }
+    },
+    getUserName:  state => state.app_user.user && `${state.app_user.user.firstname}  ${state.app_user.user.lastname}`
 }
 const mutations = {
     findUser: async (state) => {
@@ -49,7 +56,7 @@ const mutations = {
         state.app_user.authenticated = true;
         state.web_user.authenticated = false;
     },
-    setAppUserData: (state, payload) =>{
+    setAppUserData: (state, payload) => {
         state.app_user.user = payload.data
         state.app_user.temp_user = false;
     }
@@ -63,7 +70,7 @@ const actions = {
     setAppUserToken: (context, payload) => {
         context.commit('setAppUserToken', payload)
     },
-    setAppUserData: (context, payload) =>{
+    setAppUserData: (context, payload) => {
         context.commit('setAppUserData', payload)
     }
 }

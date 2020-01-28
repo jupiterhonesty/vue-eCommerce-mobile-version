@@ -47,7 +47,34 @@
                               </td>
                             </tr>
                         </tfoot>               
-                    </table>   
+                      </table>   
+                      <div class="title-box">
+                        <div>     
+                          Address                          
+                          <span></span>
+                        </div>
+                      </div>
+                      <ul class="qty"  v-if="delivery_address.length">
+                         <li>
+                          <div class="row">
+                            <div class="col-12">{{ username }}</div>
+                          </div>
+                        </li>
+                        
+                        <li>
+                          <div class="row">
+                            <div class="col-12">{{ delivery_address[0].long_name }} {{delivery_address[1].long_name}}, {{delivery_address[2].long_name}}</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="row pl-3">
+                                <div v-if="delivery_address[3]">{{ delivery_address[3].long_name }},</div> <div v-if="delivery_address[4]">{{ delivery_address[4].long_name }},</div> <div v-if="delivery_address[5]">{{delivery_address[5].long_name}}</div> <div v-if="delivery_address[6]">{{delivery_address[6].long_name}}</div> <div v-if="delivery_address[7]">{{delivery_address[7].long_name}}</div></div>
+                              </div>
+                          </div>
+                        </li>
+                      </ul>        
                     </div>
                     <div class="payment-box">
                       <div class="upper-box">
@@ -150,15 +177,16 @@ export default {
       webTotalDetails: 'cart/webTotalDetails',
       webTotalLines:'cart/webTotalLines',
       paymenttype:'cart/paymenttype',
-      webTotalTitle: 'cart/webTotalTitle'
+      webTotalTitle: 'cart/webTotalTitle',
+      delivery_address: 'cart/getDeliveryAddress',
+      username: 'auth/getUserName'
     })
   },
-  mounted() {
+  mounted() {   
     this.pt=this.paymenttype
   },
   data() {
     return {
-      delivery_address_text:'losansels,dei,sde',
       special_instructions_message:'',
       pt:0,
       user: {        
@@ -185,7 +213,6 @@ export default {
     },
     order() {
       this.$store.dispatch('cart/order',{
-        delivery_address_text:this.delivery_address_text,
         special_instructions_message:this.special_instructions_message})      
     },  
     onCancelled() {

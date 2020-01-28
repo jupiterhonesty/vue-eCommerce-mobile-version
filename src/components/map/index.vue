@@ -18,8 +18,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "GoogleMap",
+  computed: {
+    ...mapGetters({
+      coordinates: "auth/getCoordinates"
+    })
+  },
   data() {
     return {
       // default to Montreal to keep it simple
@@ -32,7 +38,8 @@ export default {
   },
 
   mounted() {
-    this.geolocate();
+    if (!this.coordinates.lat || !this.coordinates.lng) this.geolocate();
+    else this.center = this.coordinates;
   },
 
   methods: {
@@ -63,7 +70,6 @@ export default {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        this.markers.push({ position: this.center });
       });
     }
   }

@@ -10,7 +10,7 @@ const state = {
   ordered: false,
   orderhistory: null,
   last_order: [],
-  delivery_address_text:""
+  delivery_address_text:"{}"
 }
 // getters
 const getters = {
@@ -30,7 +30,8 @@ const getters = {
   getOrderID: state => state.order_id,
   ordered: state => state.ordered,
   order_history: state => state.orderhistory,
-  paymenttype: state => state.payment_type
+  paymenttype: state => state.payment_type,
+  getDeliveryAddress: state => JSON.parse(state.delivery_address_text)
 
 }
 // mutations
