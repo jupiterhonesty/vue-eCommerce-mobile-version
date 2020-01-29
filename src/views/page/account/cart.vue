@@ -140,7 +140,7 @@
                   <td v-if="tax.type=='taxesfees'" v-b-modal.modal-cart-detail>{{tax.text}}</td>
                   <td v-else>{{tax.text}}</td>
                   <td>
-                    <div>{{tax.value_show}}</div>
+                    <div :style="tax.style=='crossed'?'text-decoration: line-through;':tax.style=='bold'?'font-weight: bold;':'font-style: normal;'">{{tax.value_show}}</div>
                   </td>
                 </tr>
           
@@ -175,12 +175,19 @@
         </div>
         <div class="row cart-buttons" v-if="cart.length">
           <div class="col-6">
-            <router-link :to="{ path: '/collection/shop'}" :class="'btn btn-solid'">go shopping</router-link>
+            <router-link v-if="!getFreeDeliveryText" :to="{ path: '/collection/shop'}" :class="'btn btn-solid'">go shopping</router-link>
+            <div v-else> {{getFreeDeliveryText}}</div>
           </div>
           <div class="col-6">
-            <router-link :to="{ path: '/page/account/checkout'}" :class="'btn btn-solid'">check out</router-link>
-          </div>
+            <router-link v-if="!getBlockCheckout" :to="{ path: '/page/account/checkout'}" :class="'btn btn-solid'">check out</router-link>
+            <router-link v-else :to="{ path: '/collection/shop'}" :class="'btn btn-solid'">Skip</router-link>
+          </div>          
         </div>
+        <!-- <div class="row">
+          <div class="col-12">
+            {{getFreeDeliveryText}}
+          </div>
+        </div> -->
       </div>
       <b-modal id="modal-cart-detail" size="md" centered hide-footer >
         <template v-slot:modal-title>{{webTotalTitle}}</template>
@@ -240,7 +247,10 @@ export default {
       webTotalLines:'cart/webTotalLines',
       webTotalTitle: 'cart/webTotalTitle',
       webTotalLegalText:'cart/webTotalLegalText',
-      webTotalLegalUrl:'cart/webTotalLegalUrl'
+      webTotalLegalUrl:'cart/webTotalLegalUrl',
+      getBlockCheckout: 'cart/getBlockCheckout',
+      getFreeDeliveryText: 'cart/getFreeDeliveryText',
+      getIsFreeDelivery: 'cart/getIsFreeDelivery'
     })
   },
   methods: {

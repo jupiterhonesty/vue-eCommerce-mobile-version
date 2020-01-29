@@ -31,7 +31,10 @@ const getters = {
   ordered: state => state.ordered,
   order_history: state => state.orderhistory,
   paymenttype: state => state.payment_type,
-  getDeliveryAddress: state => JSON.parse(state.delivery_address_text)
+  getDeliveryAddress: state => JSON.parse(state.delivery_address_text),
+  getBlockCheckout:  state => state.base_cart && state.base_cart.block_checkout,
+  getFreeDeliveryText: state => state.base_cart && state.base_cart.get_free_delivery_text,
+  getIsFreeDelivery: state => state.base_cart && state.base_cart.is_free_delivery
 
 }
 // mutations

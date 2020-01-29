@@ -43,7 +43,7 @@
                               <td v-if="tax.type=='taxesfees'" v-b-modal.modal-check-detail>{{tax.text}}</td>
                               <td v-else>{{tax.text}}</td>
                               <td>
-                                <div>{{tax.value_show}}</div>
+                                <div :style="tax.style=='crossed'?'text-decoration: line-through;':tax.style=='bold'?'font-weight: bold;':'font-style: normal;'">{{tax.value_show}}</div>
                               </td>
                             </tr>
                         </tfoot>               
@@ -116,12 +116,24 @@
                           </ul>
                         </div>
                       </div>
-                      <div class="text-right">                    
-                          <router-link :to="{ path: '/page/order-success/'}">
-                            <a @click="order()" v-if="cart.length" class="btn-solid btn">Place Order</a>
-                          </router-link>
-                        
+                      <div class="row">
+                          <div class="col-6">
+                            <div class="text-left">
+                                {{getFreeDeliveryText}}
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="text-right">                    
+                              <router-link v-if="!getBlockCheckout" :to="{ path: '/page/order-success/'}">
+                                <a @click="order()" v-if="cart.length" class="btn-solid btn">Place Order</a>
+                              </router-link>
+                              <router-link v-else :to="{ path: '/collection/shop/'}">
+                                <a class="btn-solid btn">Skip</a>
+                              </router-link>                     
+                            </div>       
+                          </div>
                       </div>
+                                     
                     </div>
                   </div>
                 </div>
@@ -179,7 +191,10 @@ export default {
       paymenttype:'cart/paymenttype',
       webTotalTitle: 'cart/webTotalTitle',
       delivery_address: 'cart/getDeliveryAddress',
-      username: 'auth/getUserName'
+      username: 'auth/getUserName',
+      getBlockCheckout: 'cart/getBlockCheckout',
+      getFreeDeliveryText: 'cart/getFreeDeliveryText',
+      getIsFreeDelivery: 'cart/getIsFreeDelivery'
     })
   },
   mounted() {   
