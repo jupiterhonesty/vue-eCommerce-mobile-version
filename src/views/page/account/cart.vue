@@ -175,19 +175,14 @@
         </div>
         <div class="row cart-buttons" v-if="cart.length">
           <div class="col-6">
-            <router-link v-if="!getFreeDeliveryText" :to="{ path: '/collection/shop'}" :class="'btn btn-solid'">go shopping</router-link>
-            <div v-else> {{getFreeDeliveryText}}</div>
+            <router-link v-if="!getBlockCheckout&&getIsFreeDelivery" :to="{ path: '/collection/shop'}" :class="'btn btn-solid'">go shopping</router-link>
+            <div v-else> {{ getWarningText || getFreeDeliveryText}}</div>
           </div>
           <div class="col-6">
             <router-link v-if="!getBlockCheckout" :to="{ path: '/page/account/checkout'}" :class="'btn btn-solid'">check out</router-link>
             <router-link v-else :to="{ path: '/collection/shop'}" :class="'btn btn-solid'">Skip</router-link>
           </div>          
-        </div>
-        <!-- <div class="row">
-          <div class="col-12">
-            {{getFreeDeliveryText}}
-          </div>
-        </div> -->
+        </div> 
       </div>
       <b-modal id="modal-cart-detail" size="md" centered hide-footer >
         <template v-slot:modal-title>{{webTotalTitle}}</template>
@@ -250,7 +245,8 @@ export default {
       webTotalLegalUrl:'cart/webTotalLegalUrl',
       getBlockCheckout: 'cart/getBlockCheckout',
       getFreeDeliveryText: 'cart/getFreeDeliveryText',
-      getIsFreeDelivery: 'cart/getIsFreeDelivery'
+      getIsFreeDelivery: 'cart/getIsFreeDelivery',
+      getWarningText: 'cart/getWarningText'
     })
   },
   methods: {

@@ -119,14 +119,15 @@
                       <div class="row">
                           <div class="col-6">
                             <div class="text-left">
-                                {{getFreeDeliveryText}}
+                                {{getWarningText || getFreeDeliveryText}}
                             </div>
                           </div>
                           <div class="col-6">
-                            <div class="text-right">                    
-                              <router-link v-if="!getBlockCheckout" :to="{ path: '/page/order-success/'}">
-                                <a @click="order()" v-if="cart.length" class="btn-solid btn">Place Order</a>
-                              </router-link>
+                            <div class="text-right">      
+                              <div v-if="!getBlockCheckout && cart.length">     
+                                <a @click="order()" v-if="!delivery_address.length" v-b-modal.address-issue class="btn-solid btn">Place Order</a>   
+                                <a @click="order()" v-else class="btn-solid btn">Place Order</a>
+                              </div>
                               <router-link v-else :to="{ path: '/collection/shop/'}">
                                 <a class="btn-solid btn">Skip</a>
                               </router-link>                     
@@ -164,6 +165,18 @@
           </tbody>     
       </table>
     </b-modal>
+
+     <b-modal id="address-issue" size="md" centered hide-footer >
+        <template v-slot:modal-title>Warning</template>
+        <table align="center">
+          <th>
+            <tr>
+              <td><strong>Address required for order</strong></td>                  
+            </tr>
+          </th>
+         
+      </table>
+    </b-modal>
     </section>
     <Footer />
   </div>
@@ -194,7 +207,8 @@ export default {
       username: 'auth/getUserName',
       getBlockCheckout: 'cart/getBlockCheckout',
       getFreeDeliveryText: 'cart/getFreeDeliveryText',
-      getIsFreeDelivery: 'cart/getIsFreeDelivery'
+      getIsFreeDelivery: 'cart/getIsFreeDelivery',
+      getWarningText: 'cart/getWarningText'
     })
   },
   mounted() {   
@@ -227,8 +241,11 @@ export default {
       // this.pt=this.paymenttype
     },
     order() {
-      this.$store.dispatch('cart/order',{
-        special_instructions_message:this.special_instructions_message})      
+      if(this.delivery_address.length) {
+        this.$router.push('/page/order-success')
+        this.$store.dispatch('cart/order',{
+          special_instructions_message:this.special_instructions_message})      
+      } 
     },  
     onCancelled() {
     }
